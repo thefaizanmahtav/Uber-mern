@@ -1,3 +1,4 @@
+
 # /users/register Endpoint
 
 ## Endpoint
@@ -81,5 +82,89 @@ Status: 201 Created
     "email": "john.doe@example.com"
   },
   "token": "..."
+}
+```
+
+---
+
+# /users/login Endpoint
+
+## Endpoint
+
+`GET /users/login`
+
+## Description
+This endpoint allows an existing user to log in by providing their email and password. The endpoint validates the input, checks if the user exists, verifies the password, and returns a JWT token upon successful authentication.
+
+## Request Body
+```
+{
+  "email": "string (valid email)",
+  "password": "string (min 6 chars)"
+}
+```
+
+## Responses
+
+- **200 OK**
+  - Login successful. Returns the user object and a JWT token.
+  - Example:
+    ```json
+    {
+      "user": { /* user object */ },
+      "token": "jwt_token_here",
+      "message": "Login successfuly"
+    }
+    ```
+
+- **400 Bad Request**
+  - Validation failed (e.g., invalid email, short password, missing fields).
+  - Example:
+    ```json
+    {
+      "errors": [
+        { "msg": "invalid Email", ... }
+      ]
+    }
+    ```
+
+- **401 Unauthorized**
+  - Invalid email or password.
+  - Example:
+    ```json
+    {
+      "message": "Invalid email or password"
+    }
+    ```
+
+- **500 Internal Server Error**
+  - Unexpected server error.
+
+## Validation Rules
+- `email`: Must be a valid email address.
+- `password`: Minimum 6 characters.
+
+## Example Request
+```
+GET /users/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+## Example Success Response
+```
+Status: 200 OK
+{
+  "user": {
+    "_id": "...",
+    "fullName": { "firstName": "John", "lastName": "Doe" },
+    "email": "john.doe@example.com"
+  },
+  "token": "...",
+  "message": "Login successfuly"
 }
 ```
