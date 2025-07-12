@@ -168,3 +168,79 @@ Status: 200 OK
   "message": "Login successfuly"
 }
 ```
+
+---
+
+# /users/profile Endpoint
+
+## Endpoint
+
+`GET /users/profile`
+
+## Description
+Returns the authenticated user's profile information. Requires a valid JWT token (sent via cookie or Authorization header). The endpoint is protected by authentication middleware.
+
+## Request
+- No request body required. JWT token must be provided in cookie or Authorization header.
+
+## Responses
+
+- **200 OK**
+  - Returns the user profile object.
+  - Example:
+    ```json
+    {
+      "_id": "...",
+      "fullName": { "firstName": "John", "lastName": "Doe" },
+      "email": "john.doe@example.com"
+    }
+    ```
+
+- **401 Unauthorized**
+  - Missing or invalid token.
+  - Example:
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+- **500 Internal Server Error**
+  - Unexpected server error.
+
+---
+
+# /users/logout Endpoint
+
+## Endpoint
+
+`GET /users/logout`
+
+## Description
+Logs out the authenticated user by clearing the JWT token cookie and blacklisting the token. Requires a valid JWT token (sent via cookie or Authorization header). The endpoint is protected by authentication middleware.
+
+## Request
+- No request body required. JWT token must be provided in cookie or Authorization header.
+
+## Responses
+
+- **200 OK**
+  - Logout successful. Returns a message confirming logout.
+  - Example:
+    ```json
+    {
+      "message": "User Loggout Successfuly"
+    }
+    ```
+
+- **401 Unauthorized**
+  - Missing or invalid token.
+  - Example:
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+- **500 Internal Server Error**
+  - Unexpected server error.
