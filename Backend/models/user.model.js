@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
         firstName: {
             type: String,
             required: true,
-            minlenth: [3, "First name must be at leat 3 charectors long"]
+            minlength: [3, "First name must be at leat 3 charectors long"]
         },
         lastName: {
             type: String,
@@ -17,12 +17,12 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        minlenth: [5, "Email must be at least 5 charectors long"]
+        minlength: [5, "Email must be at least 5 charectors long"]
     },
     password: {
         type: String,
         required: true,
-        minlenth: [6, "Password must be at least 6 charectors long"],
+        minlength: [6, "Password must be at least 6 charectors long"],
         select: false
     },
     soketId: {

@@ -19,27 +19,21 @@ userRouter.post("/register",
 
         body("password")
             .isLength({ min: 6 })
-            .withMessage("Password Name must be al least 6 charector long")
+            .withMessage("Password must be al least 6 charector long")
     ],
     registerUser
 )
 
-userRouter.get("/login",
-    [
-        body("email")
-            .isEmail()
-            .withMessage("invalid Email"),
-
-        body("password")
-            .isLength({ min: 6 })
-            .withMessage("Password Name must be al least 6 charector long")
-
-    ],
+userRouter.post("/login",
+   [
+    body("email").isEmail().withMessage("Invalid email"),
+    body("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters long")
+  ],
     loginUser
 )
 
 userRouter.get("/profile", authUser, userProfile)
 
-userRouter.get("/logout", authUser, logoutUser)
+userRouter.post("/logout", authUser, logoutUser)
 
 export default userRouter

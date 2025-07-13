@@ -110,6 +110,163 @@ This endpoint allows a new captain to register by providing their personal detai
     ```
 
 - **500 Internal Server Error**
+
+---
+
+# /captains/login Endpoint
+
+## Endpoint
+
+`POST /captains/login`
+
+## Description
+Allows a captain to log in by providing their email and password. Validates input, checks credentials, and returns a JWT token upon successful authentication.
+
+## Request Body
+```
+{
+  "email": "string (valid email)",
+  "password": "string (min 6 chars)"
+}
+```
+
+## Responses
+
+- **200 OK**
+  - Login successful. Returns the captain object and a JWT token.
+  - Example:
+    ```json
+    {
+      "captain": { /* captain object */ },
+      "token": "jwt_token_here",
+      "message": "Captain Login Successfuly"
+    }
+    ```
+
+- **400 Bad Request**
+  - Validation failed (e.g., invalid email, short password, missing fields).
+  - Example:
+    ```json
+    {
+      "errors": [
+        { "msg": "Invalid email", ... }
+      ]
+    }
+    ```
+
+- **401 Unauthorized**
+  - Invalid email or password.
+  - Example:
+    ```json
+    {
+      "message": "invalid email or password"
+    }
+    ```
+
+- **500 Internal Server Error**
+  - Unexpected server error.
+
+## Validation Rules
+- `email`: Must be a valid email address.
+- `password`: Minimum 6 characters.
+
+## Example Request
+```
+POST /captains/login
+Content-Type: application/json
+
+{
+  "email": "alex.smith@example.com",
+  "password": "securepass"
+}
+```
+
+## Example Success Response
+```
+Status: 200 OK
+{
+  "captain": {
+    "_id": "...",
+    "fullName": { "firstName": "Alex", "lastName": "Smith" },
+    "email": "alex.smith@example.com"
+  },
+  "token": "...",
+  "message": "Captain Login Successfuly"
+}
+```
+
+---
+
+# /captains/profile Endpoint
+
+## Endpoint
+
+`GET /captains/profile`
+
+## Description
+Returns the authenticated captain's profile information. Requires a valid JWT token (sent via cookie or Authorization header). The endpoint is protected by authentication middleware.
+
+## Request
+- No request body required. JWT token must be provided in cookie or Authorization header.
+
+## Responses
+
+- **200 OK**
+  - Returns the captain profile object.
+  - Example:
+    ```json
+    {
+      "captain": { /* captain object */ }
+    }
+    ```
+
+- **401 Unauthorized**
+  - Missing or invalid token.
+  - Example:
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+- **500 Internal Server Error**
+  - Unexpected server error.
+
+---
+
+# /captains/logout Endpoint
+
+## Endpoint
+
+`POST /captains/logout`
+
+## Description
+Logs out the authenticated captain by clearing the JWT token cookie and blacklisting the token. Requires a valid JWT token (sent via cookie or Authorization header). The endpoint is protected by authentication middleware.
+
+## Request
+- No request body required. JWT token must be provided in cookie or Authorization header.
+
+## Responses
+
+- **200 OK**
+  - Logout successful. Returns a message confirming logout.
+  - Example:
+    ```json
+    {
+      "message": "Captain Loggout Successfuly"
+    }
+    ```
+
+- **401 Unauthorized**
+  - Missing or invalid token.
+  - Example:
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+- **500 Internal Server Error**
   - Unexpected server error.
 
 ## Validation Rules
