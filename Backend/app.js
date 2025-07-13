@@ -5,6 +5,7 @@ import cors from "cors"
 import connectToDatabase from "./db/db.js"
 import userRouter from "./routes/user.routes.js"
 import cookieParser from "cookie-parser" 
+import captainRouter from "./routes/captain.routes.js"
 
 
 connectToDatabase()
@@ -17,6 +18,8 @@ app.use(cookieParser())
 app.use(cors())
 
 app.use("/users", userRouter )
+app.use("/captains", captainRouter )
+
 
 app.get("/", (req, res) => {
     res.send("Hello Mahtav 🫡")

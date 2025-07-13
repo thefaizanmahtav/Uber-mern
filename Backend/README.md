@@ -50,7 +50,117 @@ This endpoint allows a new user to register by providing their first name, last 
     ```
 
 - **500 Internal Server Error**
+
+---
+
+# /captains/register Endpoint
+
+## Endpoint
+
+`POST /captains/register`
+
+## Description
+This endpoint allows a new captain to register by providing their personal details and vehicle information. The endpoint validates the input, checks for existing captains with the same email, hashes the password, creates the captain, and returns a JWT token upon successful registration.
+
+## Request Body
+```
+{
+  "fullName": {
+    "firstName": "string (min 3 chars)",
+    "lastName": "string (min 3 chars)"
+  },
+  "email": "string (valid email)",
+  "password": "string (min 6 chars)",
+  "vehicle": {
+    "color": "string (min 3 chars)",
+    "plate": "string (min 3 chars)",
+    "capacity": "number (min 1)",
+    "vehicleType": "string (car, bike, autoRickshaw)"
+  }
+}
+```
+
+## Responses
+
+- **201 Created**
+  - Captain registered successfully. Returns the created captain object and a JWT token.
+  - Example:
+    ```json
+    {
+      "captain": { /* captain object */ },
+      "token": "jwt_token_here"
+    }
+    ```
+
+- **400 Bad Request**
+  - Validation failed (e.g., invalid email, short password, missing fields) or captain already exists with the provided email.
+  - Example:
+    ```json
+    {
+      "errors": [
+        { "msg": "Invalid email", ... }
+      ]
+    }
+    ```
+    or
+    ```json
+    {
+      "message": "Captain already exists with this email"
+    }
+    ```
+
+- **500 Internal Server Error**
   - Unexpected server error.
+
+## Validation Rules
+- `email`: Must be a valid email address.
+- `fullName.firstName`: Minimum 3 characters.
+- `fullName.lastName`: Minimum 3 characters.
+- `password`: Minimum 6 characters.
+- `vehicle.color`: Minimum 3 characters.
+- `vehicle.plate`: Minimum 3 characters.
+- `vehicle.capacity`: Must be a number and at least 1.
+- `vehicle.vehicleType`: Must be one of "car", "bike", "autoRickshaw".
+
+## Example Request
+```
+POST /captains/register
+Content-Type: application/json
+
+{
+  "fullName": {
+    "firstName": "Alex",
+    "lastName": "Smith"
+  },
+  "email": "alex.smith@example.com",
+  "password": "securepass",
+  "vehicle": {
+    "color": "Red",
+    "plate": "XYZ123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+## Example Success Response
+```
+Status: 201 Created
+{
+  "captain": {
+    "_id": "...",
+    "fullName": { "firstName": "Alex", "lastName": "Smith" },
+    "email": "alex.smith@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "XYZ123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  },
+  "token": "..."
+}
+```
 
 ## Validation Rules
 - `email`: Must be a valid email address.

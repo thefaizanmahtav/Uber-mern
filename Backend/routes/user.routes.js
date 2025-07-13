@@ -15,11 +15,11 @@ userRouter.post("/register",
 
         body("fullName.firstName")
             .isLength({ min: 3 })
-            .withMessage("First Name must be al leat 3 charector long"),
+            .withMessage("First Name must be al least 3 charector long"),
 
         body("password")
             .isLength({ min: 6 })
-            .withMessage("Password Name must be al leat 6 charector long")
+            .withMessage("Password Name must be al least 6 charector long")
     ],
     registerUser
 )
@@ -32,7 +32,7 @@ userRouter.get("/login",
 
         body("password")
             .isLength({ min: 6 })
-            .withMessage("Password Name must be al leat 6 charector long")
+            .withMessage("Password Name must be al least 6 charector long")
 
     ],
     loginUser
