@@ -3,6 +3,7 @@ import { validationResult } from "express-validator";
 import { createCaptain } from "../services/captain.service.js";
 import bcrypt from "bcrypt"
 import { blacklistedTokenModel } from "../models/blackListedToken.js";
+import { userModel } from "../models/user.model.js";
 
 
 
@@ -16,10 +17,10 @@ export const registerCaptain = async (req, res, next) => {
 
         const { fullName, email, password, vehicle } = req.body
 
-        const existingCaptain = await captainModel.findOne({ email })
+        const existingUserOrCaptain = await captainModel.findOne({ email }) || await userModel.findOne({ email })
 
-        if (existingCaptain) {
-            return res.status(400).json({ message: "Captain already exists with this email" })
+        if (existingUserOrCaptain) {
+            return res.status(400).json({ message: "Email is already in use by another user or captain" })
         }
 
         const hashedPassword = await captainModel.hashPassword(password)
@@ -43,43 +44,6 @@ export const registerCaptain = async (req, res, next) => {
     } catch (error) {
         console.error("CaptainRegister error:", error);
         next(error);
-    }
-
-}
-
-export const loginCaptain = async (req, res, next) => {
-    try {
-
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
-        const { email, password } = req.body;
-
-
-        const captain = await captainModel.findOne({ email }).select("+password")
-
-        if (!captain) {
-            return res.status(401).json({ message: "invalid email or password" })
-        }
-
-        const isMatch = await captain.comparePassword(password)
-
-        if (!isMatch) {
-            return res.status(401).json({ message: "invalid email or password" })
-        }
-
-        const token = await captain.generateAuthToken()
-
-        res.cookie("token", token)
-
-        res.status(200).json({ captain, token, message: "Captain Login Successfuly" })
-
-
-    } catch (error) {
-        console.log("Login captain", error);
-        next(error)
     }
 
 }

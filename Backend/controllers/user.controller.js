@@ -2,6 +2,8 @@ import { userModel } from "../models/user.model.js";
 import { createUser } from "../services/user.service.js";
 import { validationResult } from "express-validator";
 import { blacklistedTokenModel } from "../models/blackListedToken.js";
+import { captainModel } from "../models/captain.model.js";
+
 
 
 
@@ -14,10 +16,10 @@ export const registerUser = async (req, res, next) => {
 
         const { fullName, email, password } = req.body;
 
-        const existingUser = await userModel.findOne({ email })
+        const existingUserOrCaptain = await captainModel.findOne({ email }) || await userModel.findOne({ email })
 
-        if (existingUser) {
-            return res.status(400).json({ message: "User already exists with this email" })
+        if (existingUserOrCaptain) {
+            return res.status(400).json({ message: "Email is already in use by another user or captain" })
         }
 
         const hashedPassword = await userModel.hashPassword(password);
@@ -50,7 +52,12 @@ export const loginUser = async (req, res, next) => {
 
         const { email, password } = req.body
 
-        const user = await userModel.findOne({ email }).select("+password")
+        let user = await userModel.findOne({ email }).select("+password")
+
+
+        if (!user) {
+            user = await captainModel.findOne({ email }).select("+password")
+        }
 
         if (!user) {
             return res.status(401).json({
@@ -70,14 +77,13 @@ export const loginUser = async (req, res, next) => {
 
         res.cookie("token", token)
 
-
         res.status(200).json(
             {
-                user, token,
+                user,
+                token,
                 message: "Login successfuly"
             }
         )
-
 
     } catch (error) {
         console.log("loginUser", error)
@@ -88,7 +94,7 @@ export const loginUser = async (req, res, next) => {
 
 export const userProfile = async (req, res, next) => {
 
-   return res.status(200).json(req.user)
+    return res.status(200).json(req.user)
 
 }
 

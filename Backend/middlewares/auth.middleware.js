@@ -1,65 +1,43 @@
+import jwt from "jsonwebtoken";
+import { blacklistedTokenModel } from "../models/blackListedToken.js";
 import { userModel } from "../models/user.model.js";
-import jwt from "jsonwebtoken"
-import {blacklistedTokenModel} from "../models/blackListedToken.js"
 import { captainModel } from "../models/captain.model.js";
 
-export const authUser = async (req, res, next) => {
-    const token = req.cookies.token || req.headers.authorization?.split(' ')[1]
-
-    if (!token) {
-        res.status(401).json({ message: "Unauthorized" })
-    }
-
-    const isBlacklisted = await blacklistedTokenModel.findOne({ token: token })
-    console.log(isBlacklisted);
-    
-
-    if (isBlacklisted) {
-        res.status(401).json({ message: "Unauthorized" })
-    }
-
+export const authUserAndCaptain = async (req, res, next) => {
     try {
+        const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        if (!token) {
+            return res.status(401).json({ message: "Unauthorized: No token provided" });
+        }
 
-        const user = await userModel.findById(decoded._id)
+        const isBlacklisted = await blacklistedTokenModel.findOne({ token });
 
-        req.user = user;
+        if (isBlacklisted) {
+            return res.status(401).json({ message: "Unauthorized: Token is blacklisted" });
+        }
 
-        return next()
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    } catch (error) {
-        return res.status(401).json({ message: "Unauthorized" })
-    }
-}
 
-export const authCaptain = async (req, res, next) => {
-    const token = req.cookies.token || req.headers.authorization?.split(' ')[1]
-
-    if (!token) {
-        res.status(401).json({ message: "Unauthorized" })
-    }
-
-    const isBlacklisted = await blacklistedTokenModel.findOne({ token: token })
-    console.log(isBlacklisted);
-    
-
-    if (isBlacklisted) {
-        res.status(401).json({ message: "Unauthorized" })
-    }
-
-    try {
-
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
-        const captain = await captainModel.findById(decoded._id)
+        let user = await userModel.findById(decoded._id);
+        if (user) {
+            req.user = user;
+            return next();
+        }
+        console.log(user);
         
 
-        req.captain = captain;
+        const captain = await captainModel.findById(decoded._id);
+        if (captain) {
+            req.captain = captain;
+            return next();
+        }
 
-        return next()
+        return res.status(401).json({ message: "Unauthorized: User not found" });
 
     } catch (error) {
-        return res.status(401).json({ message: "Unauthorized" })
+        console.error("Auth error:", error.message);
+        return res.status(401).json({ message: "Unauthorized: Invalid or expired token" });
     }
-}
+};
