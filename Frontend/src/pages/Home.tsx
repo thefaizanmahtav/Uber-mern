@@ -19,7 +19,7 @@ import {
 
 import uberLogo from "../images/Uber-White-Logo.wine.svg"
 import { cn } from "@/lib/utils"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import useAuth from "@/hooks/useAuth"
 // import useAuthCaptain from "@/hooks/useAuthCaptain"
 
@@ -41,10 +41,10 @@ const signupLinks: Items[] = [
 
 function Home() {
     const { user } = useAuth()
-    console.log("user A:", user)
 
-    // const { captain } = useAuthCaptain()
-    // console.log("Captain:", captain)
+    if (user) {
+        return <Navigate to="/users/dashboard" replace />
+    }
 
     return (
         <>
@@ -156,7 +156,7 @@ function Home() {
 
                                     <NavigationMenuItem>
                                         <NavigationMenuLink asChild>
-                                            <Link to="/login" className="hidden md:inline-block lg:text-white lg:text-[16px] lg:px-4 lg:ml-1 lg:hover:bg-gray-700 lg:hover:rounded-full transition-all">
+                                            <Link to="/login" className="inline-block text-white text-[16px] lg:px-4 lg:ml-1 hover:bg-gray-700 hover:rounded-full transition-all">
                                                 Log in
                                             </Link>
                                         </NavigationMenuLink>
