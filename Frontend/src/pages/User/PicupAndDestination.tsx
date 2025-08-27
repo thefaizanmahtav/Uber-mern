@@ -34,7 +34,7 @@ function PicupAndDestination() {
 
     return (
 
-        <div className="min-w-screen md:px-10 py-10  xl:p-[60px] xl:px-[148px] px-6">
+        <div className="relative top-10 xl:top-20 min-w-screen md:px-10 py-10  xl:p-[60px] xl:px-[148px] px-6">
 
             <div className="xl:flex xl:justify-between">
 

@@ -93,10 +93,6 @@ function Footer() {
         { lable: "Cities", to: "" }
     ]
 
-
-
-
-
     return (
         <footer className="flex py-10 flex-col md:p-[60px] bg-black xl:px-[148px] md:px-10 px-6">
 
