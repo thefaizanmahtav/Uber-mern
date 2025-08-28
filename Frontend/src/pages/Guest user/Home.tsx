@@ -1,8 +1,10 @@
-import LoginSignup from "./LoginSignup"
-import Navbar from "./Navbar"
-import PicupAndDestination from "./PicupAndDestination"
-import SuggestionsCard from "./SuggestionsCard"
-import UberAppDownloadingOpts from "./UberAppDownloadingOpts"
+import Footer from "../Footer/Footer"
+import LoginSignup from "../../components/guestUser/LoginSignup"
+import Navbar from "../../components/guestUser/Navbar"
+import PicupAndDestination from "../../components/guestUser/PicupAndDestination"
+import SeepriceButton from "../../components/guestUser/SeepriceButton"
+import SuggestionsCard from "../../components/guestUser/SuggestionsCard"
+import UberAppDownloadingOpts from "../../components/guestUser/UberAppDownloadingOpts"
 
 
 function Home() {
@@ -14,6 +16,8 @@ function Home() {
             <SuggestionsCard />
             <LoginSignup />
             <UberAppDownloadingOpts />
+            <Footer />
+            <SeepriceButton />
         </div>
     )
 
