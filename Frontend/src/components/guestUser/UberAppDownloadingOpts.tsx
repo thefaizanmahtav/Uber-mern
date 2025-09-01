@@ -6,7 +6,7 @@ import driverLogo from "../../images/Driver-App-Icon_iOS.svg"
 function UberAppDownloadingOpts() {
 
     return (
-        <div className="min-w-screen md:px-10 p-10 xl:p-15 bg-gray-100 xl:pb-[60px] xl:px-[148px] px-6">
+        <div className="max-w-full overflow-x-hidden md:px-10 p-10 xl:p-15 bg-gray-100 xl:pb-[60px] xl:px-[148px] px-6">
 
             <div className="mb-8 w-fit">
                 <h1 className="md:w-full text-[30px]  xl:items-center h-fit xl:w-lg md:text-[38px] font-bold">It’s easier in the apps</h1>

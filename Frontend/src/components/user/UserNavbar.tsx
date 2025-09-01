@@ -9,7 +9,7 @@ function UserNavbar() {
     const firstName = user?.fullName?.firstName
 
     return (
-        <div className="relative xl:top-17 hidden xl:px-42 xl:w-screen xl:h-14 xl:flex justify-between xl:items-center xl:bg-black">
+        <div className="relative xl:top-17 hidden xl:px-42 xl:w-full xl:h-14 xl:flex justify-between xl:items-center xl:bg-black">
 
             <div className="flex justify-center items-center">
                 <h1 className="text-white/95 text-[18px] font-semibold mr-6">Welcome back,{firstName}</h1>

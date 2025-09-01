@@ -64,7 +64,7 @@ function Navbar() {
 
 
     return (
-        <nav className="fixed z-500 top-0 p-3 w-screen flex justify-between items-center bg-white">
+        <nav className="fixed z-500 top-0 p-3 w-full flex justify-between items-center bg-white">
 
             <div className="flex items-center justify-center">
                 <div className="text-white text-xl flex justify-center">

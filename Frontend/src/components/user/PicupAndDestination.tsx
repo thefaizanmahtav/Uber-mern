@@ -34,7 +34,7 @@ function PicupAndDestination() {
 
     return (
 
-        <div className="relative top-10 xl:top-20 min-w-screen md:px-10 py-10  xl:p-[60px] xl:px-[148px] px-6">
+        <div className="relative top-15 xl:top-17 min-w-full md:px-10 py-10  xl:p-[60px] xl:px-[148px] px-6">
 
             <div className="xl:flex xl:justify-between">
 
@@ -165,9 +165,11 @@ function PicupAndDestination() {
 
                             <div className=" absolute h-[1px] w-13 bg-black/90 rotate-90 top-[62px] bottom-0 left-0 right-6 "></div>
 
-                            <Button className="bg-black p-7 px-9 w-fit text-white text-md rounded-lg">
+                            <Link 
+                            to={"/users/dashboard/ride"}
+                            className="bg-black py-4 px-9 w-fit text-white text-md rounded-lg">
                                 See Prices
-                            </Button>
+                            </Link>
                         </div>
                     </form>
                     

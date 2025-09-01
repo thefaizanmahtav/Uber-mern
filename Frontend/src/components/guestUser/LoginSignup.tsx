@@ -5,7 +5,7 @@ import signupRounde from "../../images/Signup-roundededge.svg"
 function LoginSignup() {
 
     return (
-        <div className=" min-w-screen md:px-10 pb-10  xl:pb-[60px] xl:px-[148px] px-6">
+        <div className=" overflow-x-hidden max-w-full md:px-10 pb-10  xl:pb-[60px] xl:px-[148px] px-6">
 
             {/* login signup  */}
 

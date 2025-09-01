@@ -6,6 +6,7 @@ import Login from "./pages/Login"
 import Dashboard from "./pages/User/Dashboard"
 import UberAccount from "./pages/User/UberAccount"
 import ProtectedRoute from "./pages/Routes/ProtectedRoute"
+import Ride from "./pages/User/Ride"
 
 
 function App() {
@@ -29,6 +30,15 @@ function App() {
         element={
           <ProtectedRoute>
             <UberAccount />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/users/dashboard/ride"
+        element={
+          <ProtectedRoute>
+            <Ride />
           </ProtectedRoute>
         }
       />

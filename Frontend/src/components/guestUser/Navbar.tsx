@@ -46,7 +46,7 @@ function Navbar() {
 
 
     return (
-        <nav className="fixed z-500 top-0 p-3 w-screen flex justify-between items-center bg-black">
+        <nav className="fixed z-500 top-0 p-3 w-full flex justify-between items-center bg-black">
             <div className="flex items-center justify-center">
                 <div className="text-white text-xl flex justify-center">
                     <img className="h-10 lg:h-12 flex lg:pl-18" src={uberLogo} alt="Uber Logo" />
