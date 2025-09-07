@@ -20,9 +20,6 @@ function UberAccount() {
 
     return (
         <>
-
-
-
             <div className="lg:h-18 text-white text-xl flex items-center lg:bg-black">
                 <Link
                     to="/users/dashboard"
