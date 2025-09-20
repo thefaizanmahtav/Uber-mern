@@ -7,6 +7,9 @@ import Dashboard from "./pages/User/Dashboard"
 import UberAccount from "./pages/User/UberAccount"
 import ProtectedRoute from "./pages/Routes/ProtectedRoute"
 import Ride from "./pages/User/Ride"
+import PickAride from "./components/ChosingVehicleUser/PickAride"
+import Product from "./components/ChosingVehicleUser/Product"
+import ConfirmRide from "./components/ChosingVehicleUser/ConfirmRide"
 
 
 function App() {
@@ -39,6 +42,33 @@ function App() {
         element={
           <ProtectedRoute>
             <Ride />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/users/dashboard/pick"
+        element={
+          <ProtectedRoute>
+            <PickAride />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/users/dashboard/product"
+        element={
+          <ProtectedRoute>
+            <Product />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/users/dashboard/confirm"
+        element={
+          <ProtectedRoute>
+            <ConfirmRide />
           </ProtectedRoute>
         }
       />

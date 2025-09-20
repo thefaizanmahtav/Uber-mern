@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
-import { useState, type JSX } from "react";
+import { useEffect, useState, type JSX } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function ChoseAride() {
 
@@ -77,7 +78,13 @@ function ChoseAride() {
         },
     ]
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 1024);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const [selectedRide, setSelectedRide] = useState<string | null>(ride[0].name);
 
@@ -103,13 +110,19 @@ function ChoseAride() {
         setTimeout(() => setIsDragging(false), 50);
     };
 
+    const navigate = useNavigate()
+
     return (
-        <div className="relative top-0 w-full h-screen overflow-hidden ">
+        <div className="max-lg:relative top-0 w-full xl:w-[610px] lg:w-xl max-lg:h-screen overflow-hidden ">
 
             {/* map */}
 
-            <div className="absolute inset-0 w-full h-84">
-                <div className="absolute p-3.5 left-2.5 top-0.5">
+            <div className="lg:hidden absolute inset-0 w-full h-84">
+
+                <Link
+                    to={"/users/dashboard/ride"}
+                    className="absolute p-3 left-2.5 top-1 bg-white rounded-full">
+
                     <svg width="28" height="30" viewBox="0 0 24 24" fill="none">
                         <title>Arrow left</title>
                         <path
@@ -117,7 +130,8 @@ function ChoseAride() {
                             fill="currentColor"
                         />
                     </svg>
-                </div>
+
+                </Link>
 
                 <img
                     className="w-full h-full object-cover"
@@ -131,36 +145,41 @@ function ChoseAride() {
             {/* Vehicle Container */}
 
             <div
-                onWheel={handleWheel} // or touch drag for mobile
+                onWheel={handleWheel}
                 style={{
-                    transform: `translateY(${offset}px)`,
+                    transform: isMobile ? `translateY(${offset}px)` : "none",
                     transition: isDragging ? "none" : "transform 0s",
                 }}
 
 
-                className="absolute bottom-0 w-full h-screen bg-gray-400 rounded-t-2xl pb-28"
+                className="max-lg:absolute lg:relative left-0 right-0 bottom-0 w-full xl:w-[610px] lg:w-xl h-[100vh] bg-gray-400 lg:bg-white rounded-t-2xl pb-28 lg:pb-60"
             >
                 <div className="overflow-y-auto h-full">
 
                     {/* Sticky Header */}
-                    <div className="sticky top-0 z-50 flex flex-col justify-center items-center text-xl font-semibold w-full bg-white p-4 rounded-t-2xl border-b-3 border-gray-300 ">
+                    <div className="lg:hidden sticky top-0 z-50 flex flex-col justify-center items-center text-xl font-semibold w-full bg-white p-4 rounded-t-2xl border-b-3 border-gray-300 ">
                         <span
                             className="absolute top-1.5 rounded-full h-[5px] w-14 bg-gray-200">
                         </span>
                         choose a ride
                     </div>
 
+                    <div className="max-lg:hidden flex flex-col w-full bg-white space-y-4 p-4 lg:pb-0">
+                        <span className="text-4xl font-bold">Choose a ride</span>
+                        <span className="text-[25px] font-bold">Rides we think you'll like</span>
+                    </div>
+
 
                     {/*Vihecle Selection */}
 
-                    <div className="py-4 bg-white ">
+                    <div className="py-4 bg-white">
 
                         {ride.map(({ name, time, eta, desc, img, svg, cap, price }) => (
 
 
                             <div key={name}
                                 onClick={() => setSelectedRide(name)}
-                                className={`mx-4 my-2 bg-white rounded-2xl cursor-pointer transition border 
+                                className={`mx-4 my-2 bg-white rounded-2xl cursor-pointer transition border
             ${selectedRide === name
                                         ? "border-black ring-2 ring-black"
                                         : "border-white"
@@ -168,22 +187,19 @@ function ChoseAride() {
                                 tabIndex={0}
                             >
 
-                                <div className="flex bg-white rounded-2xl">
+                                <div className="flex bg-white rounded-2xl gap-6">
 
-                                    <div className="h-26 w-28">
+                                    <div className="h-26 w-28 lg:h-36 lg:w-36">
 
                                         <img
                                             className="h-full w-full object-cover"
                                             src={img} alt="moto" />
-
                                     </div>
 
-
-
-                                    <div className="flex w-full justify-between mr-4">
+                                    <div className="flex w-full justify-between lg:items-center mr-4">
 
                                         <div className="py-2">
-                                            <h1 className="flex gap-2 items-center text-xl font-semibold">
+                                            <h1 className="flex gap-2 items-center text-xl font-semibold lg:text-2xl lg:font-bold">
                                                 {name}
                                                 <span>
                                                     {svg}
@@ -201,7 +217,7 @@ function ChoseAride() {
 
                                         </div>
 
-                                        <div className="text-xl font-semibold my-2">
+                                        <div className="text-xl font-semibold my-2 lg:text-2xl lg:font-bold">
                                             <p>₹{price}</p>
                                         </div>
                                     </div>
@@ -224,7 +240,7 @@ function ChoseAride() {
 
                             <div key={name}
                                 onClick={() => setSelectedRide(name)}
-                                className={`mx-4 my-2 bg-white rounded-2xl cursor-pointer transition border 
+                                className={`mx-4 my-2 bg-white rounded-2xl cursor-pointer transition lg:duration-1000 border
             ${selectedRide === name
                                         ? "border-black ring-2 ring-black"
                                         : "border-white"
@@ -232,22 +248,19 @@ function ChoseAride() {
                                 tabIndex={0}
                             >
 
-                                <div className="flex bg-white rounded-2xl">
+                                <div className="flex bg-white rounded-2xl gap-6">
 
-                                    <div className="h-26 w-28">
+                                    <div className="h-26 w-28 lg:h-36 lg:w-36">
 
                                         <img
                                             className="h-full w-full object-cover"
                                             src={img} alt="moto" />
-
                                     </div>
 
-
-
-                                    <div className="flex w-full justify-between mr-4">
+                                    <div className="flex w-full justify-between lg:items-center mr-4">
 
                                         <div className="py-2">
-                                            <h1 className="flex gap-2 items-center text-xl font-semibold">
+                                            <h1 className="flex gap-2 items-center text-xl font-semibold lg:text-2xl lg:font-bold">
                                                 {name}
                                                 <span>
                                                     {svg}
@@ -265,7 +278,7 @@ function ChoseAride() {
 
                                         </div>
 
-                                        <div className="text-xl font-semibold my-2">
+                                        <div className="text-xl font-semibold my-2 lg:text-2xl lg:font-bold">
                                             <p>₹{price}</p>
                                         </div>
                                     </div>
@@ -284,37 +297,43 @@ function ChoseAride() {
             </div>
             {/* payment button */}
 
-            <div className="fixed bottom-0 z-50 flex flex-col bg-white w-full pb-5 px-4 border-t-[1px] border-gray-300">
+            <div className="fixed bottom-0 lg:bottom-6 lg:rounded-xl lg:shadow-md lg:shadow-gray-300  z-50 flex flex-col bg-white w-full lg:w-[550px] lg:h-24 pb-5 lg:py-5 px-4 border-t-[1px] lg:border-t-0 border-gray-300">
 
-                {/* Payment Method */}
 
-                <div className="flex items-center gap-3 my-4 cursor-pointer">
+                <div className="lg:flex justify-between items-center">
 
-                    <div>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="css-dwgQzU"><title>Credit card</title><path fill-rule="evenodd" clip-rule="evenodd" d="M1 4h22v4H1V4Zm0 7h22v9H1v-9Z" fill="currentColor"></path></svg>
-                    </div>
+                    {/* Payment Method */}
 
-                    <div className="flex justify-between w-full items-center">
-
-                        <div className="text-[15px] font-bold ">
-                            Add Payment Method
-                        </div>
+                    <div className="flex items-center gap-3 my-4 cursor-pointer">
 
                         <div>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="css-cGLBlV" color="contentPrimary"><title>Chevron right small</title><path d="m16.9 12-4.6 6H8.5l4.6-6-4.6-6h3.8l4.6 6Z" fill="currentColor"></path></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="css-dwgQzU"><title>Credit card</title><path fill-rule="evenodd" clip-rule="evenodd" d="M1 4h22v4H1V4Zm0 7h22v9H1v-9Z" fill="currentColor"></path></svg>
+                        </div>
+
+                        <div className="flex justify-between w-full items-center">
+
+                            <div className="text-[15px] font-bold ">
+                                Add Payment Method
+                            </div>
+
+                            <div className="lg:rotate-90 lg:pb-3 ">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="css-cGLBlV" color="contentPrimary"><title>Chevron right small</title><path d="m16.9 12-4.6 6H8.5l4.6-6-4.6-6h3.8l4.6 6Z" fill="currentColor"></path></svg>
+                            </div>
+
                         </div>
 
                     </div>
 
+                    {/* Button */}
+
+                    <div>
+                        <Button onClick={() => navigate('/users/dashboard/confirm')} className="w-full p-7 lg:p-0 lg:px-14 lg:py-7 rounded-xl bg-black text-white cursor-pointer text-lg">
+                            Request {selectedRide}
+                        </Button>
+                    </div>
+
                 </div>
 
-                {/* Button */}
-
-                <div>
-                    <Button className="w-full p-7 rounded-xl bg-black text-white cursor-pointer text-lg">
-                        Request {selectedRide}
-                    </Button>
-                </div>
             </div>
 
         </div >

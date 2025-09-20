@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import UserProfile from "./UserProfile";
 
 
-function Navbar_home() {
+
+function NavbarPickAride() {
+
     const [activeTab, setActiveTab] = useState("ride");
 
     useEffect(() => {
@@ -23,7 +25,7 @@ function Navbar_home() {
 
                         {/* right navbar */}
 
-                        <div className="text-white text-xl flex justify-center lg:gap-16">
+                        <div className="text-white text-xl w-full flex lg:gap-16">
 
                             <img
                                 className="hidden lg:h-15 lg:flex"
@@ -32,11 +34,13 @@ function Navbar_home() {
                             />
 
                             <Link
-                                to={"/users/dashboard"}
+                                to={"/users/dashboard/ride"}
                                 className="lg:hidden"
                             >
                                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><title>Arrow left</title><path d="M22 13.5H6.3l5.5 7.5H8.3l-6.5-9 6.5-9h3.5l-5.5 7.5H22v3Z" fill="black"></path></svg>
                             </Link>
+
+                            <h1 className="lg:hidden flex justify-center items-center w-full text-[22px] text-black font-semibold">Plan your ride</h1>
 
                             <div className="hidden lg:flex">
 
@@ -102,27 +106,9 @@ function Navbar_home() {
 
                             {/* user icon */}
 
-                            <UserProfile
-                                threeLine={
-                                    <div className="lg:hidden">
-                                        <svg
-                                            width="17"
-                                            height="17"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <title>Menu</title>
-                                            <path
-                                                fillRule="evenodd"
-                                                clipRule="evenodd"
-                                                d="M23 4H1v3h22V4Zm0 7H1v3h22v-3ZM1 18h22v3H1v-3Z"
-                                                fill="black"
-                                            />
-                                        </svg>
-                                    </div>
-                                }
-                            />
+                            <UserProfile />
+
+
 
                         </div>
                     </div>
@@ -136,4 +122,4 @@ function Navbar_home() {
 
 }
 
-export default Navbar_home
+export default NavbarPickAride
