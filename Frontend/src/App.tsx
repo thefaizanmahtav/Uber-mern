@@ -10,6 +10,7 @@ import Ride from "./pages/User/Ride"
 import PickAride from "./components/ChosingVehicleUser/PickAride"
 import Product from "./components/ChosingVehicleUser/Product"
 import ConfirmRide from "./components/ChosingVehicleUser/ConfirmRide"
+import FinishRide from "./components/ChosingVehicleUser/FinishRide"
 
 
 function App() {
@@ -69,6 +70,14 @@ function App() {
         element={
           <ProtectedRoute>
             <ConfirmRide />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/users/dashboard/confirm/finishride"
+        element={
+          <ProtectedRoute>
+            <FinishRide/>
           </ProtectedRoute>
         }
       />

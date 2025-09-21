@@ -1,10 +1,9 @@
 import { useEffect, useState, type JSX } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
 import Navbar_home from "./Navbard_home";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
-function ConfirmRide() {
+function FinishRide() {
 
     type Cards = {
         title: string
@@ -40,31 +39,6 @@ function ConfirmRide() {
         },
     ]
 
-    const cards_second: Cards[] = [
-        {
-            title: "Ride",
-            image: "https://mobile-content.uber.com/launch-experience/ride.png",
-            svg: (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="css-cGLBlV" color="contentPrimary"><title>Chevron right small</title><path d="m16.9 12-4.6 6H8.5l4.6-6-4.6-6h3.8l4.6 6Z" fill="currentColor"></path></svg>
-            )
-        },
-        {
-            title: "rentals",
-            image: "https://mobile-content.uber.com/launch-experience/Hourly2021.png",
-            svg: (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="css-cGLBlV" color="contentPrimary"><title>Chevron right small</title><path d="m16.9 12-4.6 6H8.5l4.6-6-4.6-6h3.8l4.6 6Z" fill="currentColor"></path></svg>
-            )
-        },
-        {
-            title: "reserve",
-            image: "https://mobile-content.uber.com/uber_reserve/reserve_clock.png",
-            svg: (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="css-cGLBlV" color="contentPrimary"><title>Chevron right small</title><path d="m16.9 12-4.6 6H8.5l4.6-6-4.6-6h3.8l4.6 6Z" fill="currentColor"></path></svg>
-            )
-        },
-
-    ]
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
     useEffect(() => {
@@ -95,8 +69,8 @@ function ConfirmRide() {
         setTimeout(() => setIsDragging(false), 50);
     };
 
-
     return (
+
 
         <div className="overflow-hidden">
 
@@ -122,7 +96,7 @@ function ConfirmRide() {
                                 {/* Back botton  */}
 
                                 <Link
-                                    to={"/users/dashboard/ride"}
+                                    to={"/users/dashboard/confirm"}
                                     className="">
 
                                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -216,52 +190,16 @@ function ConfirmRide() {
                         }}
 
 
-                        className="lg:hidden lg:relative absolute left-0 right-0 bottom-0 w-full h-[100vh] bg-white rounded-t-2xl pb-28 lg:pb-60 overflow-y-scroll"
+                        className="lg:hidden lg:relative absolute z-30 left-0 right-0 bottom-0 w-full h-[100vh] bg-white rounded-t-2xl pb-28 lg:pb-60"
                     >
 
                         {/* Sticky Header */}
 
-                        <div className="sticky top-0 z-50 flex flex-col justify-center items-center text-xl font-semibold w-full bg-white p-4 rounded-t-2xl">
-
-                            {/* ispendding */}
-
-                            {/* top Noch */}
+                        <div className="lg:hidden sticky top-0 z-50 flex flex-col justify-center items-center text-xl font-semibold w-full bg-white p-4 rounded-t-2xl border-b-3 border-gray-200/80 ">
                             <span
                                 className="absolute top-1.5 rounded-full h-[5px] w-14 bg-gray-200">
                             </span>
-
-                            {/* Ride requested
-
-                            <span className="text-black/50 font-normal text-lg">
-                                Finding drivers nearby
-                            </span> */}
-
-
-                            {/* isDriverFound time */}
-
-                            <h1 className="text-2xl font-bold">
-                                3 min away
-                            </h1>
-
-                        </div>
-
-                        {/* opt */}
-
-                        <div className="m-2 px-4 py-1">
-
-                            <div className="flex justify-between items-center font-semibold">
-                                <h3 className="flex items-center text-[16px] gap-2">
-                                    Share PIN with Driver
-                                    <span className="pt-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
-                                    </span>
-                                </h3>
-
-                                <h1 className="bg-blue-500 flex w-fit px-4 py-1 text-xl font-bold text-white rounded-lg">
-                                    0 7 8 8
-                                </h1>
-                            </div>
-
+                            Finish a ride
                         </div>
 
                         <div className="m-2 space-y-2">
@@ -387,79 +325,15 @@ function ConfirmRide() {
 
                                 </div>
 
-                                {/* Talk to captain */}
-
-                                <div className="flex w-full gap-2 items-center pt-6">
-
-                                    {/* send message */}
-
-                                    <div className="flex items-center justify-center gap-2 py-4 bg-gray-100 w-full rounded-xl">
-
-                                        <div className="pt-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-message-square-more" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path></svg>
-                                        </div>
-
-                                        <div>
-
-                                            <h1 className="text-[21px] font-semibold text-black">
-                                                Send a message...
-                                            </h1>
-                                        </div>
-
-                                    </div>
-
-                                    {/* call */}
-
-                                    <div className="flex items-center justify-center  py-5 px-5 bg-gray-100 rounded-xl">
-
-                                        <div className="">
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-phone" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path>
-                                            </svg>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
                             </div>
 
-                            {/* Suggestion */}
+                            {/* Make a payment button */}
 
-                            <div className="lg:hidden flex pt-4 mb-4 flex-col m-2 ">
-
-                                {/* card */}
-
-                                <div className="flex w-full gap-4">
-
-                                    {cards_second.map(({ title, image }) => (
-
-                                        <Link to={""} className="flex flex-col w-full items-center justify-center">
-
-                                            <div key={title} className="flex px-4 py-5 justify-center w-full bg-gray-100 rounded-xl ">
-
-                                                <div className="h-[50px] w-[50px]">
-                                                    <img className="w-full h-full object-cover" src={image} alt="uber img" />
-                                                </div>
-
-                                            </div>
-
-                                            <div className="text-[17px] mt-1 font-semibold">
-                                                {title}
-                                            </div>
-
-                                        </Link>
-
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Cancle button */}
-
-                            <Button
-                                className="bg-gray-100 rounded-lg px-1 p-6.5 text-lg text-red-600 w-full hover:bg-gray-300 duration-500 ">
-                                Cancle ride
-                            </Button>
+                            <Link
+                                to={'/users/dashboard/ride'}
+                                className="flex justify-center items-center bg-gray-100 rounded-lg py-3 text-lg text-red-600 w-full hover:bg-gray-300 duration-500 font-semibold">
+                                Make payment
+                            </Link>
                         </div>
 
                     </div>
@@ -470,46 +344,20 @@ function ConfirmRide() {
 
                         {/* Sticky Header */}
 
-                        <div className="flex flex-col justify-center items-center text-xl font-semibold w-full bg-white rounded-t-2xl ">
-
-                            {/* iscaptain find  */}
-
-                            {/* <span>
-                                Ride requested
-                            </span>
-                            <span className="text-black/50 font-normal text-lg">
-                                Finding drivers nearby
-                            </span> */}
+                        <div className="flex flex-col justify-center items-center text-xl font-semibold w-full bg-white rounded-t-2xl pb-2.5">
 
                             <h1 className="text-[25px] font-semibold">
-                                Pickup in 2 mins
+                                Finish a ride
                             </h1>
                         </div>
 
-                        {/* opt */}
+                        {/* Border bottom */}
 
-                        <div className="m-2 -mx-4 px-6 py-3 border-y-2 border-gray-200/80">
-
-                            <div className="flex justify-between items-center font-semibold">
-                                <h3 className="flex items-center w-24 text-[16px]">
-                                    Share PIN with Driver
-                                </h3>
-
-                                <div className="flex items-center gap-2">
-                                    <span className="pt-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
-                                    </span>
-                                    <h1 className="bg-blue-500 flex w-fit px-4 py-1 text-xl font-bold text-white rounded-lg">
-                                        0 7 8 8
-                                    </h1>
-                                </div>
-                            </div>
-
-                        </div>
+                        <div className="-mx-4 border-b-2 border-gray-200/80"></div>
 
                         {/* Driver Details */}
 
-                        <div className="relative px-2 py-2">
+                        <div className="relative px-2 py-2 mt-1">
 
 
                             <div className="flex w-full justify-between">
@@ -549,42 +397,11 @@ function ConfirmRide() {
 
                             </div>
 
-                            {/* Talk to captain */}
-
-                            <div className="flex w-full gap-2 items-center pt-6">
-
-                                {/* send message */}
-
-                                <div className="flex items-center justify-center gap-2 py-4 bg-gray-100 w-full rounded-xl">
-
-                                    <div className="pt-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-message-square-more" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path></svg>
-                                    </div>
-
-                                    <div>
-
-                                        <h1 className="text-[20px] font-semibold text-black">
-                                            Send a message...
-                                        </h1>
-                                    </div>
-
-                                </div>
-
-                                {/* call */}
-
-                                <div className="flex items-center justify-center  py-5 px-5 bg-gray-100 rounded-xl">
-
-                                    <div className="">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-phone" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path>
-                                        </svg>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
                         </div>
+
+                        {/* Border top */}
+
+                        <div className="-mx-4 border-b-2 border-gray-200/80"></div>
 
                         <div className="m-2">
 
@@ -662,14 +479,14 @@ function ConfirmRide() {
                                 </div>
                             </div>
 
-                            {/* Cancle button */}
+                            {/* Make a payment button */}
 
-                            <Button
-                                className="bg-gray-100 rounded-lg p-6.5 text-lg text-red-600 w-full hover:bg-gray-300 duration-500 ">
-                                Cancle ride
-                            </Button>
+                            <Link
+                                to={'/users/dashboard/ride'}
+                                className="flex justify-center items-center bg-gray-100 rounded-lg py-3 text-lg text-red-600 w-full hover:bg-gray-300 duration-500 font-semibold">
+                                Make payment
+                            </Link>
                         </div>
-
 
                     </div>
                 </div>
@@ -678,8 +495,7 @@ function ConfirmRide() {
             </div>
 
         </div>
-
     )
 };
 
-export default ConfirmRide
+export default FinishRide
