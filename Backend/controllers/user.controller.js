@@ -51,12 +51,14 @@ export const loginUser = async (req, res, next) => {
         }
 
         const { email, password } = req.body
+        let role = "user"
 
         let user = await userModel.findOne({ email }).select("+password")
 
 
         if (!user) {
             user = await captainModel.findOne({ email }).select("+password")
+            role = "captain"
         }
 
         if (!user) {
@@ -81,6 +83,7 @@ export const loginUser = async (req, res, next) => {
             {
                 user,
                 token,
+                role,
                 message: "Login successfuly"
             }
         )

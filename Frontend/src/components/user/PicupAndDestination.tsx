@@ -46,7 +46,7 @@ function PicupAndDestination() {
                         for later directly from your browser.
                     </p>
 
-                     <form>
+                    <form>
 
                         <div className="flex flex-col m-1 space-y-4 relative max-w-md">
 
@@ -164,31 +164,31 @@ function PicupAndDestination() {
 
                             <div className=" absolute h-[1px] w-13 bg-black/90 rotate-90 top-[62px] bottom-0 left-0 right-6 "></div>
 
-                            <Link 
-                            to={"/users/dashboard/ride"}
-                            className="bg-black py-4 px-9 w-fit text-white text-md rounded-lg">
+                            <Link
+                                to={"/users/dashboard/ride"}
+                                className="bg-black py-4 px-9 w-fit text-white text-md rounded-lg">
                                 See Prices
                             </Link>
                         </div>
                     </form>
-                    
+
                 </div>
 
 
-                    <div className="row-span-3 col-end-12">
+                <div className="row-span-3 col-end-12">
 
-                        <div className="hidden md:w-full  xl:mb-0  md:h-full md:block rounded-lg xl:h-[610px] xl:w-[610px] overflow-hidden">
-                            <img
-                                src="https://www.groovypost.com/wp-content/uploads/2020/07/Google-Photos-map-search-map-view-zoom-out.png"
-                                alt="Google map view demo"
-                                className="h-full w-full object-cover transition-all duration-2000 ease-in-out animate-in slide-in-from-bottom-10 "
-                            />
-
-                        </div>
+                    <div className="hidden md:w-full  xl:mb-0  md:h-full md:block rounded-lg xl:h-[610px] xl:w-[610px] overflow-hidden">
+                        <img
+                            src="https://www.groovypost.com/wp-content/uploads/2020/07/Google-Photos-map-search-map-view-zoom-out.png"
+                            alt="Google map view demo"
+                            className="h-full w-full object-cover transition-all duration-2000 ease-in-out animate-in slide-in-from-bottom-10 "
+                        />
 
                     </div>
 
                 </div>
+
+            </div>
 
         </div>
 

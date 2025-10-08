@@ -9,7 +9,7 @@ const options = {
 const API: AxiosInstance = axios.create(options)
 
 API.interceptors.response.use(
-    (response) => response.data,
+    (response) => response,
 
     (error: AxiosError) => {
         const status = error.response?.status;

@@ -5,12 +5,16 @@ import CaptainSignup from "./pages/CaptainSignup"
 import Login from "./pages/Login"
 import Dashboard from "./pages/User/Dashboard"
 import UberAccount from "./pages/User/UberAccount"
+import UberAccountCaptain from "./pages/Captain/UberAccountCaptain"
 import ProtectedRoute from "./pages/Routes/ProtectedRoute"
 import Ride from "./pages/User/Ride"
 import PickAride from "./components/ChosingVehicleUser/PickAride"
 import Product from "./components/ChosingVehicleUser/Product"
 import ConfirmRide from "./components/ChosingVehicleUser/ConfirmRide"
 import FinishRide from "./components/ChosingVehicleUser/FinishRide"
+import ProtectedRouteCaptain from "./pages/Routes/ProtectedRouteCaptain"
+import DashboardCaptain from "./pages/Captain/DashboardCaptain"
+import DriverOnline from "./components/captain/DriverOnline"
 
 
 function App() {
@@ -77,10 +81,41 @@ function App() {
         path="/users/dashboard/confirm/finishride"
         element={
           <ProtectedRoute>
-            <FinishRide/>
+            <FinishRide />
           </ProtectedRoute>
         }
       />
+
+
+      {/* captain protected routes */}
+
+      <Route
+        path="/captains/dashboard"
+        element={
+          <ProtectedRouteCaptain>
+            <DashboardCaptain />
+          </ProtectedRouteCaptain>
+        }
+      />
+
+      <Route
+        path="/captains/dashboard/online"
+        element={
+          <ProtectedRouteCaptain>
+            <DriverOnline />
+          </ProtectedRouteCaptain>
+        }
+      />
+
+      <Route
+        path="/captains/dashboard/uber-account"
+        element={
+          <ProtectedRouteCaptain>
+            <UberAccountCaptain />
+          </ProtectedRouteCaptain>
+        }
+      />
+
 
       {/* Other public routes */}
 

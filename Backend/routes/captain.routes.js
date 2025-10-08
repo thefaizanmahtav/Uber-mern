@@ -6,7 +6,7 @@ import { loginUser } from "../controllers/user.controller.js";
 
 const captainRouter = express.Router();
 
-// captains
+// prefix captains
 
 captainRouter.post(
     "/register",

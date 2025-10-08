@@ -18,14 +18,14 @@ import {
 
 import uberLogo from "../../images/Uber-Black_logo.png"
 import { Link, useNavigate } from "react-router-dom"
-import useAuth from "@/hooks/useAuth"
 import { useMutation } from "@tanstack/react-query"
-import { logoutUser } from "@/API/api"
 import queryClient from "@/config/queryClinte"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 import { ActivitySquareIcon, HelpCircle, User, Wallet2Icon } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import useAuthCaptain from "@/hooks/useAuthCaptain"
+import { logoutcaptain } from "@/API/apiCaptain"
 
 function Navbar() {
 
@@ -41,15 +41,19 @@ function Navbar() {
 
     const navigate = useNavigate()
 
-    const { user } = useAuth()
-    const firstName = user?.fullName?.firstName
-    const lastName = user?.fullName?.lastName
+    const { captain } = useAuthCaptain()
+
+    const firstName = captain?.fullName?.firstName
+    const lastName = captain?.fullName?.firstName
+
+    const vehiclePlate = captain?.vehicle.plate
+
 
     const {
         mutate: logout,
         isPending
     } = useMutation({
-        mutationFn: logoutUser,
+        mutationFn: logoutcaptain,
         onSuccess: () => {
             queryClient.removeQueries({ queryKey: ["auth"] }),
                 navigate('/', { replace: true })
@@ -63,10 +67,12 @@ function Navbar() {
 
 
     return (
-        <nav className="fixed z-500 top-0 p-3 w-full flex justify-between items-center bg-white">
+        <nav className="fixed z-20 top-0 p-3 max-lg:py-1.5 w-full flex justify-between items-center lg:bg-white">
+
+            {/* right nav items */}
 
             <div className="flex items-center justify-center">
-                <div className="text-white text-xl flex justify-center">
+                <div className="text-white text-xl flex justify-center max-lg:mb-10">
                     <img className="h-10 lg:h-12 flex lg:pl-18" src={uberLogo} alt="Uber Logo" />
                 </div >
 
@@ -140,7 +146,49 @@ function Navbar() {
                 </div>
             </div >
 
-            <div className="flex">
+            {/* middle nav items */}
+
+            <div className="lg:hidden flex flex-col items-center space-y-1">
+
+                <div className="flex items-center justify-center bg-black text-white text-lg font-semibold py-1.5 px-4.5  rounded-full">
+                    ₹ 140.5
+                </div>
+
+                <div className="text-black bg-white font-semibold px-2 py-0.5 ">
+                    TODAY
+                </div>
+
+            </div>
+
+
+
+            {/* lg size left nav items */}
+
+            <div className="lg:hidden group cursor-pointer bg-white p-3 rounded-full mb-8">
+                <Link
+                    to={"/captains/dashboard/uber-account"}
+                    className="">
+                    <svg
+                        width="17"
+                        height="17"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <title>Menu</title>
+                        <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M23 4H1v3h22V4Zm0 7H1v3h22v-3ZM1 18h22v3H1v-3Z"
+                            fill="black"
+                        />
+                    </svg>
+                </Link>
+            </div>
+
+            {/* lg size left nav items */}
+
+            <div className="flex max-lg:hidden">
                 <NavigationMenu>
 
                     <NavigationMenuList>
@@ -169,9 +217,7 @@ function Navbar() {
 
                                 </li>
 
-
-
-                                <div className="relative z-50 ">
+                                <div className="relative z-50">
                                     <Menubar className="border-none">
                                         <MenubarMenu >
                                             <MenubarTrigger className="group flex text-white gap-3 bg-black text-md outline-none px-3 py-2 hover:bg-gray-700  rounded-full transition-colors">
@@ -195,14 +241,22 @@ function Navbar() {
 
                                                 )}
                                             >
-                                                <div className="w-full h-[90vh] md:h-124 p-4 flex flex-col justify-between">
+                                                <div className="w-full h-[87vh] md:h-124 p-4 flex flex-col justify-between">
 
                                                     <div>
 
                                                         <div className="flex justify-between">
 
-                                                            <div className="flex font-bold text-3xl">
-                                                                {firstName}{" "} {lastName}
+                                                            <div className="flex flex-col">
+
+                                                                <div className="flex font-bold text-3xl">
+                                                                    {firstName}{" "} {lastName}
+                                                                </div>
+
+                                                                <div className="font-semibold text-black/70 mt-1">
+                                                                    <h1>Blue Hero Maestro Edge</h1>
+                                                                    <h2>{vehiclePlate}</h2>
+                                                                </div>
                                                             </div>
 
                                                             <div className="flex pt-1" >
@@ -242,7 +296,7 @@ function Navbar() {
 
 
                                                         <Link
-                                                            to="/users/dashboard/uber-account"
+                                                            to="/captains/dashboard/uber-account"
                                                             className="flex items-center p-5 gap-7 -mx-5 hover:bg-gray-200 transition-colors"
                                                         >
                                                             <User className="h-6 w-6" />

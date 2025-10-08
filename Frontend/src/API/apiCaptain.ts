@@ -1,30 +1,5 @@
 import API from "@/config/apiClient";
 
-interface LoginData {
-    email: string;
-    password: string;
-}
-
-interface LoginResponse {
-    token: string;
-    user: {
-        _id: string,
-        email: string,
-        fullName: {
-            firstName: string,
-            lastName: string
-        },
-        vehicle: {
-            color: string,
-            plate: string,
-            capacity: number,
-            vehicleType: string
-        }
-    }
-}
-
-export const loginCaptain = (data: LoginData): Promise<LoginResponse> => API.post("/captains/login", data)
-
 
 interface registerData {
 
@@ -59,7 +34,6 @@ interface Captain {
     }
 }
 
-// export const getCaptain = (): Promise<Captain> => API.get("/captain/profile")
+export const getCaptain = (): Promise<Captain> => API.get("/captains/profile").then(res => res.data.captain);
 
-
-export const getCaptain = (): Promise<Captain> => API.get("/captains/profile");
+export const logoutcaptain = () => API.post("/captains/logout")

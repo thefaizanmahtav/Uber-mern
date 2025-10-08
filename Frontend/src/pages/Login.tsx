@@ -19,20 +19,18 @@ function Login() {
 
     const navigate = useNavigate()
 
-    const {
-        mutate: login,
-        isError,
-        isPending
+    const { mutate: login, isError, isPending } = useMutation({
+        mutationFn: (data: any) => LoginUserAndCaptain(data),
 
-    } = useMutation({
-        mutationFn: LoginUserAndCaptain,
-        onSuccess: () => {
-            navigate("/users/dashboard", { replace: true })
+        onSuccess: (data) => {
+            // Navigate based on role
+            const redirect = data.role === "user" ? "/users/dashboard" : "/captains/dashboard"
+            navigate(redirect, { replace: true });
         },
         onError: (err: any) => {
-            console.log("Login failed:", err.message || err)
+            console.log("Login failed:", err.message || err);
         }
-    })
+    });
 
 
     const onSubmit: SubmitHandler<loginForm> = (data) => {
