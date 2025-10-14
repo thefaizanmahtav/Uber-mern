@@ -1,14 +1,15 @@
+import { Link } from "react-router-dom"
 
 function RideAcceptDialog() {
 
 
     return (
-        <div className="overflow-hidden">
 
+        <div className="overflow-hidden">
 
             {/* ride accept dialog */}
 
-            <div className="absolute z-50 top-0 bottom-0 right-0 inset-0 w-full h-screen ">
+            <div className="absolute z-50 top-0 bottom-0 right-0 inset-0 w-full h-screen">
 
                 <img
                     className="absolute top-0 w-full h-full object-fill"
@@ -20,7 +21,8 @@ function RideAcceptDialog() {
             <div
                 className="absolute z-50 top-0 bottom-0 right-0 left-0 flex w-full h-full p-8">
 
-                <div className="flex flex-col w-full overflow-hidden transition-all duration-1500 ease-in-out animate-in slide-in-from-bottom">
+
+                <div className="flex flex-col w-full overflow-hidden transition-all duration-1000 ease-out animate-in slide-in-from-bottom lg:pb-22">
 
                     {/* Close svg */}
 
@@ -35,17 +37,19 @@ function RideAcceptDialog() {
 
                     {/*inner dialog content */}
 
-                    <div className="flex w-full h-full items-end">
+                    <div className="flex w-full h-full items-end md:justify-center">
 
-                        <div className="flex justify-center items-center w-full bg-white h-md rounded-2xl p-4 ">
+                        <div className="flex justify-center items-center w-full bg-white h-md rounded-2xl p-4 md:w-[60vh] lg:w-[65vh] lg:h-[55vh]">
 
                             {/* wrapper col */}
 
-                            <div className="flex flex-col items-center">
+                            <div className="flex flex-col items-center overflow-hidden">
 
                                 {/* Confirm button */}
 
-                                <div className="flex items-center bg-black rounded-full w-fit h-fit text-white py-2.5 px-3 gap-1.5">
+                                <Link
+                                    to={"/captains/dashboard/online/pickup-rider"}
+                                    className="flex items-center bg-black rounded-full w-fit h-fit text-white py-2.5 px-3 gap-1.5 lg:py-3.5 lg:px-4">
 
                                     {/* user svg */}
 
@@ -55,23 +59,23 @@ function RideAcceptDialog() {
 
                                     <span>Uber Go</span>
 
-                                </div>
+                                </Link>
 
                                 {/* Price */}
 
-                                <div className="text-black text-4xl font-semibold mt-3.5">
+                                <div className="text-black text-4xl lg:text-5xl font-semibold mt-3.5">
                                     ₹140.49
                                 </div>
 
                                 {/* tax */}
 
-                                <div className="text-black text-sm mt-2">
+                                <div className="text-black text-sm lg:text-[15px] mt-2">
                                     *includes 5% tax
                                 </div>
 
                                 {/* payment method */}
 
-                                <div className="flex items-center text-black text-sm mt-2 gap-1">
+                                <div className="flex items-center text-black text-sm lg:text-[15px] mt-2 gap-1">
 
                                     {/* star svg */}
 
@@ -84,14 +88,14 @@ function RideAcceptDialog() {
 
                                 </div>
 
-                                {/* border  */}
+                                {/* border middle */}
 
-                                <span className="flex items-center w-full border-b-2 border-gray-200 mt-4 -mx-40"></span>
+                                <span className="flex items-center border-b-2 border-gray-200 mt-4 px-100"></span>
 
 
                                 {/* wrapper pick and drop locations */}
 
-                                <div className="relative text-[15px] w-md  px-6 text-black font-semibold space-y-1.5 my-2 mt-4">
+                                <div className="relative text-[15px] lg:text-[18px] w-md px-6 text-black font-semibold space-y-1.5 my-2 mt-4">
 
 
                                     {/* pick and drop locations */}
@@ -147,7 +151,7 @@ function RideAcceptDialog() {
 
                                     {/* vertical border */}
 
-                                    <div className="absolute h-[2px] w-12 bg-black/90 rotate-90 top-22 bottom-0 left-2.5 right-0"></div>
+                                    <div className="absolute h-[2px] w-12 lg:w-14 bg-black/90 rotate-90 top-22 lg:top-26 bottom-0 left-2.5 lg:left-2 right-0"></div>
                                 </div>
 
 

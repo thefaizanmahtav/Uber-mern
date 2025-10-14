@@ -14,7 +14,7 @@ function DriverOnline() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const [offset, setOffset] = useState(window.innerHeight * 0.60); // start at 38%
+    const [offset, setOffset] = useState(window.innerHeight * 0.92); // start at 38%
 
 
     const [isDragging, setIsDragging] = useState(false);
@@ -25,7 +25,7 @@ function DriverOnline() {
         let newOffset = offset - e.deltaY;
 
         const minOffset = 0; // fully expanded
-        const maxOffset = window.innerHeight * 0.60; // initial closed position
+        const maxOffset = window.innerHeight * 0.92; // initial closed position
 
         if (newOffset < minOffset) newOffset = minOffset;
         if (newOffset > maxOffset) newOffset = maxOffset;
@@ -45,7 +45,7 @@ function DriverOnline() {
                 <Navbar />
             </div>
 
-            <div className="relative top-0 py-1 lg:top-25 md:px-10 xl:px-[65px] px-4.5 h-screen max-lg:bg-gray-200">
+            <div className="relative top-0 py-1 lg:top-18 md:px-10 xl:px-[65px] px-4.5 h-screen max-lg:bg-gray-200">
 
                 <div className="lg:flex flex-row-reverse">
 
@@ -54,7 +54,7 @@ function DriverOnline() {
 
                     <div className="lg:flex flex-col lg:w-full">
 
-                        <div className="lg:relative absolute inset-0 w-full h-[60vh] lg:h-[72vh]">
+                        <div className="lg:relative absolute inset-0 w-full h-[92vh] lg:h-[72vh]">
 
                             <img
                                 className="absolute top-0 w-full h-full object-fill"
@@ -65,7 +65,7 @@ function DriverOnline() {
 
                     </div>
 
-                    <RideAcceptDialog />
+                    <RideAcceptDialog /> 
 
 
                     {/* Vehicle Container mobile screen */}

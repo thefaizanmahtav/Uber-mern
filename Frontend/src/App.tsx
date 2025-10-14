@@ -15,6 +15,10 @@ import FinishRide from "./components/ChosingVehicleUser/FinishRide"
 import ProtectedRouteCaptain from "./pages/Routes/ProtectedRouteCaptain"
 import DashboardCaptain from "./pages/Captain/DashboardCaptain"
 import DriverOnline from "./components/captain/DriverOnline"
+import VerifyOtp from "./components/captain/VerifyOtp"
+import PickingUpSaddam from "./components/captain/PickingUpSaddam"
+import DropingOffSaddm from "./components/captain/DropingOffSaddm"
+import Payment from "./components/captain/Payment"
 
 
 function App() {
@@ -108,6 +112,42 @@ function App() {
       />
 
       <Route
+        path="/captains/dashboard/online/pickup-rider"
+        element={
+          <ProtectedRouteCaptain>
+            <PickingUpSaddam />
+          </ProtectedRouteCaptain>
+        }
+      />
+
+      <Route
+        path="/captains/dashboard/online/droping-saddam"
+        element={
+          <ProtectedRouteCaptain>
+            <DropingOffSaddm />
+          </ProtectedRouteCaptain>
+        }
+      />
+
+      <Route
+        path="/captains/dashboard/online/droping-saddam/payment"
+        element={
+          <ProtectedRouteCaptain>
+            <Payment />
+          </ProtectedRouteCaptain>
+        }
+      />
+
+      <Route
+        path="/captains/dashboard/pickup-rider/veriefy-OTP"
+        element={
+          <ProtectedRouteCaptain>
+            <VerifyOtp />
+          </ProtectedRouteCaptain>
+        }
+      />
+
+      <Route
         path="/captains/dashboard/uber-account"
         element={
           <ProtectedRouteCaptain>
@@ -115,6 +155,8 @@ function App() {
           </ProtectedRouteCaptain>
         }
       />
+      
+
 
 
       {/* Other public routes */}

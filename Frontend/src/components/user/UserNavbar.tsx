@@ -32,7 +32,7 @@ function UserNavbar() {
 
                 <Link
                     className="text-white font-semibold pr-8"
-                    to={"/activity"}>
+                    to={"/users/dashboard/pick"}>
                     Activity
                 </Link>
 
@@ -45,7 +45,7 @@ function UserNavbar() {
 
                 <Link
                     className="text-white font-semibold pr-8"
-                    to={"/activity"}>
+                    to={""}>
                     Promotions
                 </Link>
 
