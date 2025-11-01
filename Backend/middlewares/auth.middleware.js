@@ -12,29 +12,27 @@ export const authUserAndCaptain = async (req, res, next) => {
         }
 
         const isBlacklisted = await blacklistedTokenModel.findOne({ token });
-
         if (isBlacklisted) {
             return res.status(401).json({ message: "Unauthorized: Token is blacklisted" });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-
-        let user = await userModel.findById(decoded._id);
-        if (user) {
-            req.user = user;
-            return next();
-        }
-        console.log(user);
-        
-
+        const user = await userModel.findById(decoded._id);
         const captain = await captainModel.findById(decoded._id);
-        if (captain) {
-            req.captain = captain;
-            return next();
+
+        // Attach either user or captain to a common property
+        req.authUserAndCaptain = user || captain;
+        
+        if (user) {
+            req.authUserAndCaptain = user;
+        } else if (captain) {
+            req.authUserAndCaptain = captain;
+        } else {
+            return res.status(401).json({ message: "Unauthorized: User not found" });
         }
 
-        return res.status(401).json({ message: "Unauthorized: User not found" });
+        next();
 
     } catch (error) {
         console.error("Auth error:", error.message);

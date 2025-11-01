@@ -60,7 +60,7 @@ function LoginSignup() {
 
             <div className="flex pt-25 max-lg:flex-col">
 
-                <div className="xl:flex xl:flex-row-reverse xl:items-center xl:gap-45">
+                <div className="xl:flex xl:flex-row-reverse xl:items-center xl:gap-20">
 
                     <div className="space-y-10 mb-10">
 
@@ -113,7 +113,7 @@ function LoginSignup() {
 
             <div className="flex pt-25 max-lg:flex-col">
 
-                <div className="xl:flex xl:items-center xl:gap-45">
+                <div className="xl:flex xl:items-center xl:gap-20">
 
                     <div className="space-y-10 mb-10">
 
@@ -166,7 +166,7 @@ function LoginSignup() {
 
             <div className="flex pt-25 max-lg:flex-col">
 
-                <div className="flex flex-col-reverse xl:flex-row-reverse xl:items-center xl:gap-45">
+                <div className="flex flex-col-reverse xl:flex-row-reverse xl:items-center xl:gap-20">
 
                     <div className="space-y-10 mb-10">
 
