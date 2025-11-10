@@ -21,13 +21,10 @@ export const authUserAndCaptain = async (req, res, next) => {
         const user = await userModel.findById(decoded._id);
         const captain = await captainModel.findById(decoded._id);
 
-        // Attach either user or captain to a common property
-        req.authUserAndCaptain = user || captain;
-        
         if (user) {
-            req.authUserAndCaptain = user;
+            req.user = user;
         } else if (captain) {
-            req.authUserAndCaptain = captain;
+            req.captain = captain;
         } else {
             return res.status(401).json({ message: "Unauthorized: User not found" });
         }

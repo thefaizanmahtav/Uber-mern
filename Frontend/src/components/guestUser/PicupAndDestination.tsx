@@ -175,7 +175,7 @@ function PicupAndDestination() {
 
                     <div className="hidden my-5 lg:mb-0 lg:block rounded-lg lg:h-[370px] lg:w-[650px] overflow-hidden">
                         <img
-                            src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_1104,w_1104/v1689609697/assets/b8/c39de0-6e13-485b-ba45-66511170c62a/original/SS_Commuter.jpg"
+                            src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=1344/height=896/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy9hM2NmODU2NC1lMmE2LTQxOGMtYjliMC02NWRkMjg1YzEwMGIuanBn"
                             alt="Google map view demo"
                             className="h-full w-full object-cover"
                         />

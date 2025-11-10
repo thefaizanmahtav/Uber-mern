@@ -96,7 +96,6 @@ export const loginUser = async (req, res, next) => {
 }
 
 export const userProfile = async (req, res, next) => {
-
     return res.status(200).json(req.user)
 
 }

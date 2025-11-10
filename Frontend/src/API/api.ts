@@ -58,4 +58,6 @@ interface User {
 
 export const getUser = (): Promise<User> => API.get("/users/profile").then(res => res.data)
 
+console.log("get user", getUser());
+
 export const logoutUser = () => API.post("/users/logout")

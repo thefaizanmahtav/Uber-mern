@@ -1,6 +1,7 @@
 import { rideModel } from '../models/ride.model.js';
 import { getDistanceTimeService } from "./maps.service.js";
 import { getAddressCoordinate } from './maps.service.js';
+import crypto from 'crypto';
 
 const FARE_PER_KM = 10; // example rate
 
@@ -9,7 +10,7 @@ export const getFare = async (origin, destination) => {
         const data = await getDistanceTimeService(origin, destination);
 
         if (!data || !data.distanceValue) {
-            throw new Error("Could not get distance/time"); 
+            throw new Error("Could not get distance/time");
         }
 
         // distanceValue is in meters, convert to km
@@ -21,6 +22,11 @@ export const getFare = async (origin, destination) => {
         throw new Error("Could not calculate fare");
     }
 };
+
+const getOtp = (num) => {
+    const otp = crypto.randomInt(Math.pow(10, num - 1), Math.pow(10, num) - 1);
+    return otp;
+}
 
 const VEHICLE_TYPE_MULTIPLIER = {
     car: 1,
@@ -51,6 +57,7 @@ export const createRide = async ({ userId, pickup, destination, vehicleType }) =
         userId,
         pickup: pickup,
         destination: destination,
+        otp: getOtp(6),
         vehicleType,
         fare: fareValue,
     });
@@ -58,4 +65,4 @@ export const createRide = async ({ userId, pickup, destination, vehicleType }) =
     await newRide.save();
 
     return newRide;
-};
+}; 

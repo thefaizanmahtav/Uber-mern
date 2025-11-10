@@ -97,7 +97,7 @@ function LoginSignup() {
 
                     <div className=" flex items-center lg:h-[600px] lg:w-[610px] w-full rounded-xl">
                         <img
-                            src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_1104,w_1104/v1684855112/assets/96/4dd3d1-94e7-481e-b28c-08d59353b9e0/original/earner-illustra.png"
+                            src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=1152/height=1152/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy85NjRkZDNkMS05NGU3LTQ4MWUtYjI4Yy0wOGQ1OTM1M2I5ZTAucG5n"
                             alt="uber img"
                             className="w-full h-full rounded-xl object-cover "
                         />
@@ -150,7 +150,7 @@ function LoginSignup() {
 
                     <div className=" flex items-center lg:h-[600px] lg:w-[610px] w-full rounded-xl">
                         <img
-                            src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_1104,w_1104/v1684887108/assets/76/baf1ea-385a-408c-846b-59211086196c/original/u4b-square.png"
+                            src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=1152/height=1152/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy83NmJhZjFlYS0zODVhLTQwOGMtODQ2Yi01OTIxMTA4NjE5NmMucG5n"
                             alt="uber img"
                             className="w-full h-full rounded-xl object-cover "
                         />
@@ -190,7 +190,7 @@ function LoginSignup() {
 
                     <div className=" flex items-center lg:h-[600px] lg:w-[610px] w-full rounded-xl">
                         <img
-                            src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_1104,w_1104/v1696243819/assets/18/34e6fd-33e3-4c95-ad7a-f484a8c812d7/original/fleet-management.jpg"
+                            src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=1152/height=1152/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy8xODM0ZTZmZC0zM2UzLTRjOTUtYWQ3YS1mNDg0YThjODEyZDcuanBn"
                             alt="uber img"
                             className="w-full h-full rounded-xl object-cover "
                         />

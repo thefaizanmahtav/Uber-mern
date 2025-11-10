@@ -23,7 +23,7 @@ function BookingIntraction() {
 
                             <img
                                 className="w-full h-full object-cover"
-                                src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_305,w_540/v1740756046/assets/ac/584f92-4bf8-466c-8d2f-f549556e0aed/original/mobile-request.png" alt="uber image"
+                                src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=540/height=305/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy9hYzU4NGY5Mi00YmY4LTQ2NmMtOGQyZi1mNTQ5NTU2ZTBhZWQucG5n" alt="uber image"
                             />
 
                         </div>
@@ -48,7 +48,7 @@ function BookingIntraction() {
 
                             <img
                                 className="w-full h-full object-cover"
-                                src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_305,w_540/v1740756086/assets/0b/48199f-77c1-4078-8f06-1e4d996e4c51/original/mobile-payment.png" alt="uber image"
+                                src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=540/height=305/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy8wYjQ4MTk5Zi03N2MxLTQwNzgtOGYwNi0xZTRkOTk2ZTRjNTEucG5n" alt="uber image"
                             />
 
                         </div>
@@ -74,7 +74,7 @@ function BookingIntraction() {
 
                             <img
                                 className="w-full h-full object-cover"
-                                src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_305,w_540/v1740756134/assets/cb/cca6d5-fd79-4f63-abd4-c76f4ea42de3/original/mobile-driver.png" alt="uber image"
+                                src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=540/height=305/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy9jYmNjYTZkNS1mZDc5LTRmNjMtYWJkNC1jNzZmNGVhNDJkZTMucG5n" alt="uber image"
                             />
 
                         </div>

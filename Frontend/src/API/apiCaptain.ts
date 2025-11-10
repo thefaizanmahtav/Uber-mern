@@ -36,4 +36,5 @@ interface Captain {
 
 export const getCaptain = (): Promise<Captain> => API.get("/captains/profile").then(res => res.data.captain);
 
+
 export const logoutcaptain = () => API.post("/captains/logout")

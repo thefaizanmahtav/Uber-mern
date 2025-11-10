@@ -25,7 +25,7 @@ function UberAppDownloadingOpts() {
                         <div className="w-fit">
                             <img className="xl:hidden h-24 w-24 object-cover" src={riderLogo} alt="uber img" />
 
-                            <img className="max-xl:hidden xl:h-42 xl:w-42 object-cover" src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_2304,w_2304/v1690807720/assets/a5/9986ad-0d9f-4396-8539-389bce97f579/original/Final-Download-Uber-App.png" alt="uber img" />
+                            <img className="max-xl:hidden xl:h-42 xl:w-42 object-cover" src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=2304/height=2304/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy9hNTk5ODZhZC0wZDlmLTQzOTYtODUzOS0zODliY2U5N2Y1NzkucG5n" alt="uber img" />
                         </div>
                         <div className="xl:flex xl:flex-col">
                             Download the Uber app
@@ -51,7 +51,7 @@ function UberAppDownloadingOpts() {
                         <div className="w-fit">
                             <img className="xl:hidden h-24 w-24 object-cover" src={driverLogo} alt="uber img" />
 
-                            <img className="max-xl:hidden xl:h-42 xl:w-42 object-cover" src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_2304,w_2304/v1690813624/assets/50/e85531-2f7e-4ee7-92d4-e39a6801ee2b/original/QR_https___t.uber.com_download-driver-app.png" alt="uber img" />
+                            <img className="max-xl:hidden xl:h-42 xl:w-42 object-cover" src="https://cn-geo1.uber.com/image-proc/crop/resizecrop/udam/format=auto/width=2304/height=2304/srcb64=aHR0cHM6Ly90Yi1zdGF0aWMudWJlci5jb20vcHJvZC91ZGFtLWFzc2V0cy9jODQ2NmEyNy1kMzBjLTUxNGEtOTZmMi1lMDlmMThmYWY4MDYucG5n" alt="uber img" />
                         </div>
                         <div className="xl:flex xl:flex-col">
                             Download the Driver app
