@@ -1,16 +1,76 @@
+import useAuthSuggestions from "@/hooks/useGetSuggestions";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 
+type FormValues = {
+    pickup: string;
+    destination: string;
+};
+
 function PicupAndDestination() {
     const [activeField, setActiveField] = useState<"pickup" | "destination" | null>(null);
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm<FormValues>();
+
+    const [pickupQuery, setPickupQuery] = useState("");
+    const [destinationQuery, setDestinationQuery] = useState("");
+
+
+    // API fetching
+    const { suggestion: pickupSuggestion, isFetching: isPickupFetching } = useAuthSuggestions(pickupQuery);
+    const { suggestion: destinationSuggestion, isFetching: isDestinationFetching } = useAuthSuggestions(destinationQuery);
+
+    console.log("isFetching:", isPickupFetching);
+    console.log("suggestion:", pickupSuggestion?.data);
+
+    // 🔹 Handle form submission
+    const onSubmit = (data: FormValues) => {
+        console.log("Form Submitted:", data);
+    };
+
+    // handle typing for both fields
+    const handleInput = (field: "pickup" | "destination", value: string) => {
+        setValue(field, value);
+
+        if (field === "pickup") setPickupQuery(value);
+        if (field === "destination") setDestinationQuery(value);
+
+        setActiveField(field);
+    };
+
+    // click suggestion handler
+    const selectSuggestion = (field: "pickup" | "destination", text: string) => {
+        setValue(field, text);
+
+        if (field === "pickup") setPickupQuery(text);
+        if (field === "destination") setDestinationQuery(text);
+
+        setActiveField(null);
+    };
 
     const dropdownRef = useRef<HTMLDivElement | null>(null);
     const pickupRef = useRef<HTMLInputElement | null>(null);
     const destinationRef = useRef<HTMLInputElement | null>(null);
+
+    // Inside your component
+
+    const pickupList = Array.isArray(pickupSuggestion?.data)
+        ? pickupSuggestion.data.filter(item => typeof item === "object" && item !== null)
+        : [];
+
+    const destinationList = Array.isArray(destinationSuggestion?.data)
+        ? destinationSuggestion.data.filter(item => typeof item === "object" && item !== null)
+        : [];
+
+
+    console.log("destinationList", destinationList)
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -46,7 +106,7 @@ function PicupAndDestination() {
                         for later directly from your browser.
                     </p>
 
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
 
                         <div className="flex flex-col m-1 space-y-4 relative max-w-md">
 
@@ -55,19 +115,29 @@ function PicupAndDestination() {
                                 <input
                                     id="pickup"
                                     type="text"
+                                    {...register("pickup", { required: "Pickup location is required" })}
+                                    onChange={(e) => handleInput("pickup", e.target.value)}
+                                    value={pickupQuery}
                                     ref={pickupRef}
                                     onFocus={() => setActiveField("pickup")}
-                                    className="peer pl-14 pr-16 p-[13px] w-full bg-gray-100 rounded-lg text-lg outline-none focus:ring-2 focus:bg-white focus:ring-black"
                                     placeholder=" "
+                                    className="
+                                    peer pl-14 pr-20 p-[12px] m-[1px] w-full bg-gray-100 rounded-lg text-lg 
+                                    outline-none focus:ring-2 focus:bg-white focus:ring-black"
                                 />
 
+                                {/* Validation Error */}
+                                {errors.pickup && (
+                                    <p className="text-red-500 text-sm mt-1">{errors.pickup.message}</p>
+                                )}
+
                                 {/* left icon */}
-                                <div className="absolute left-0 top-0 bottom-0 bg-gray-100 peer-focus:ring-black peer-focus:bg-white flex justify-center items-center p-[22px] rounded-l-lg">
+                                <div className="absolute left-0 top-0 bottom-0 bg-gray-100 peer-focus:ring-black peer-focus:bg-white flex justify-center items-center p-[22px] m-[1px] rounded-l-lg">
                                     <div className="bg-black p-[5px] rounded-full w-[2px]"></div>
                                 </div>
 
                                 {/* right icon */}
-                                <div className="absolute right-0 top-0 bottom-0 bg-gray-100 peer-focus:bg-white flex justify-center items-center p-[22px] rounded-r-lg cursor-pointer">
+                                <div className="absolute right-0 top-0 bottom-0 bg-gray-100 m-[1px] peer-focus:bg-white flex justify-center items-center p-[22px] rounded-r-lg cursor-pointer">
                                     <svg
                                         width="1em"
                                         height="1em"
@@ -86,74 +156,136 @@ function PicupAndDestination() {
                                 <label
                                     htmlFor="pickup"
                                     className="absolute left-14 top-3 text-gray-500 text-lg transition-all duration-200 
-                          peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg 
-                          peer-focus:-top-[14px] peer-focus:text-sm peer-focus:p-1 
-                          peer-focus:text-black/70 peer-focus:bg-white"
+                                   peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg 
+                                    peer-focus:-top-[10px] peer-focus:text-sm peer-focus:pb-2
+                                    peer-focus:text-black/70 peer-focus:bg-white
+
+                                 /* when input has value → stay up */
+
+                                peer-[&:not(:placeholder-shown)]:-top-[10px]
+                                 peer-[&:not(:placeholder-shown)]:text-sm"
                                 >
                                     Pickup location
                                 </label>
 
-                                {/* Pickup Dropdown */}
+                                {/* Suggestion List Pickup */}
 
                                 {activeField === "pickup" && (
                                     <div
                                         ref={dropdownRef}
                                         className="absolute left-0 right-0 z-20 transition-all duration-300 ease-in-out origin-top scale-y-100 opacity-100"
                                     >
-                                        <div className="p-2 h-20 flex max-w-md justify-center items-center bg-white shadow-lg shadow-black/30 rounded-lg">
+                                        <div className="p-2 mt-[2px] min-h-20 flex max-w-md flex-col bg-white shadow-lg shadow-black/30 rounded-lg">
 
-                                            <Link to={"/test"} className="text-black/50 font-medium">
-                                                No result
-                                            </Link>
+                                            {/* Loading */}
+                                            {isPickupFetching && (
+                                                <p className="text-gray-500 text-sm">Loading...</p>
+                                            )}
+
+                                            {/* Suggestions */}
+                                            {!isPickupFetching && (
+                                                <ul className="bg-white rounded-lg w-full overflow-y-auto max-h-[55vh]">
+                                                    {(Array.isArray(pickupList) ? pickupList : [])
+                                                        .map((item, index) => {
+
+                                                            // Handle both string and object safely
+                                                            const key = typeof item === "string" ? index : (item as any).id;
+                                                            const label = typeof item === "string" ? item : (item as any).description ?? "Unknown";
+
+                                                            return (
+                                                                <li
+                                                                    key={key}
+                                                                    onMouseDown={() => selectSuggestion("pickup", label)}
+                                                                    className="p-2 text-black hover:bg-gray-100 cursor-pointer"
+                                                                >
+                                                                    {label}
+                                                                </li>
+                                                            );
+                                                        })}
+                                                </ul>
+                                            )}
 
                                         </div>
                                     </div>
                                 )}
+
                             </div>
 
-
                             {/* Destination Input */}
+
                             <div className="relative">
                                 <input
                                     id="destination"
                                     type="text"
+                                    {...register("destination", { required: "Destination location is required" })}
+                                    onChange={(e) => handleInput("destination", e.target.value)}
+                                    value={destinationQuery}
                                     ref={destinationRef}
                                     onFocus={() => setActiveField("destination")}
-                                    className="peer pl-14 pr-16 p-[13px] w-full bg-gray-100 rounded-lg text-lg outline-none focus:ring-2 focus:bg-white focus:ring-black"
                                     placeholder=" "
+                                    className="
+                                    peer pl-14 pr-20 p-[12px] m-[1px] w-full bg-gray-100 rounded-lg text-lg 
+                                    outline-none focus:ring-2 focus:bg-white focus:ring-black"
                                 />
 
                                 {/* left icon */}
-                                <div className="absolute left-0 top-0 bottom-0 bg-gray-100 flex peer-focus:bg-white justify-center items-center p-[22px] rounded-l-lg">
+                                <div className="absolute left-0 top-0 bottom-0 bg-gray-100 m-[1px] flex peer-focus:bg-white justify-center items-center p-[22px] rounded-l-lg">
                                     <div className="bg-black/90 p-[5px] h-[3px] w-[3px]"></div>
                                 </div>
-
-
 
                                 {/* floating label */}
 
                                 <label
                                     htmlFor="destination"
                                     className="absolute left-14 top-3 text-gray-500 text-lg transition-all duration-200 
-                          peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg 
-                          peer-focus:-top-[14px] peer-focus:text-sm peer-focus:p-1 
-                          peer-focus:text-black/70 peer-focus:bg-white"
+                                   peer-placeholder-shown:top-3 peer-placeholder-shown:text-lg 
+                                    peer-focus:-top-[10px] peer-focus:text-sm peer-focus:pb-2
+                                    peer-focus:text-black/70 peer-focus:bg-white
+
+                                 /* when input has value → stay up */
+
+                                peer-[&:not(:placeholder-shown)]:-top-[10px]
+                                 peer-[&:not(:placeholder-shown)]:text-sm"
                                 >
                                     Dropoff location
                                 </label>
 
-                                {/* Destination Dropdown */}
+                                {/* Suggestion List Destination */}
 
                                 {activeField === "destination" && (
                                     <div
                                         ref={dropdownRef}
-                                        className="absolute left-0 right-0  z-20 transition-all duration-300 ease-in-out origin-top scale-y-100 opacity-100"
+                                        className="absolute left-0 right-0 z-20 transition-all duration-300 ease-in-out origin-top scale-y-100 opacity-100"
                                     >
-                                        <div className="p-2 h-20 max-w-md m-1 flex justify-center items-center bg-white shadow-lg shadow-black/30 rounded-lg">
+                                        <div className="p-2 mt-[2px] min-h-20 flex max-w-md flex-col bg-white shadow-lg shadow-black/30 rounded-lg">
 
-                                            <Link to={"/test"} className="text-black/50 font-medium">
-                                                No result
-                                            </Link>
+                                            {/* Loading */}
+                                            {isDestinationFetching && (
+                                                <p className="text-gray-500 text-sm">Loading...</p>
+                                            )}
+
+                                            {/* Suggestions */}
+                                            {!isDestinationFetching && (
+                                                <ul className="bg-white rounded-lg w-full overflow-y-auto max-h-[55vh]">
+                                                    {(Array.isArray(destinationList) ? destinationList : [])
+                                                        .map((item, index) => {
+
+                                                            // Handle both string and object safely
+                                                            const key = typeof item === "string" ? index : (item as any).id;
+                                                            const label = typeof item === "string" ? item : (item as any).description ?? "Unknown";
+
+                                                            return (
+                                                                <li
+                                                                    key={key}
+                                                                    onMouseDown={() => selectSuggestion("destination", label)}
+                                                                    className="p-2 text-black hover:bg-gray-100 cursor-pointer"
+                                                                >
+                                                                    {label}
+                                                                </li>
+                                                            );
+                                                        })}
+                                                </ul>
+                                            )}
 
                                         </div>
                                     </div>
@@ -162,7 +294,7 @@ function PicupAndDestination() {
 
                             {/* vertical border */}
 
-                            <div className=" absolute h-[1px] w-13 bg-black/90 rotate-90 top-[62px] bottom-0 left-0 right-6 "></div>
+                            <div className=" absolute h-[1px] w-13 bg-black/90 rotate-90 top-[62px] bottom-0 left-0 right-8 m-[1px] "></div>
 
                             <Link
                                 to={"/users/dashboard/ride"}
@@ -173,7 +305,6 @@ function PicupAndDestination() {
                     </form>
 
                 </div>
-
 
                 <div className="row-span-3 col-end-12">
 
