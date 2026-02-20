@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 
 type ActiveField = "pickup" | "destination" | null;
 
@@ -18,12 +18,23 @@ function MapForm({
     autoFocusPickup = false
 }: MapFormProps) {
 
+    const location = useLocation();
+
+    const [pickup, setPickup] = useState("");
+    const [destination, setDestination] = useState("");
+
+    useEffect(() => {
+        if (location.state) {
+            setPickup(location.state.pickup || "");
+            setDestination(location.state.destination || "");
+        }
+    }, [location.state]);
+
+
     const [internalActiveField, setInternalActiveField] = useState<ActiveField>(null);
     const isControlled = activeField !== undefined;
     const value = isControlled ? activeField : internalActiveField;
     const setValue = isControlled ? setActiveField! : setInternalActiveField;
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
 
     const dropdownRef = useRef<HTMLDivElement | null>(null);
     const pickupInputRef = useRef<HTMLInputElement | null>(null);
@@ -65,6 +76,8 @@ function MapForm({
                             ref={pickupInputRef}
                             id="pickup"
                             type="text"
+                            value={pickup}
+                            onChange={(e) => setPickup(e.target.value)}
                             onFocus={() => setValue("pickup")}
                             className="peer pl-14 pr-16 p-[12px] w-full bg-gray-100 rounded-lg text-lg outline-none focus:ring-2 focus:bg-white focus:ring-black"
                             placeholder="Pickup location"
@@ -258,6 +271,8 @@ function MapForm({
                                 </div>
                             </div>
                         )}
+
+                        
                     </div>
 
 
@@ -266,6 +281,8 @@ function MapForm({
                         <input
                             id="destination"
                             type="text"
+                            value={destination}
+                            onChange={(e) => setDestination(e.target.value)}
                             onFocus={() => setValue("destination")}
                             className="peer pl-14 pr-16 p-[12px] w-full bg-gray-100 rounded-lg text-lg outline-none focus:ring-2 focus:bg-white focus:ring-black"
                             placeholder="Dropoff location"

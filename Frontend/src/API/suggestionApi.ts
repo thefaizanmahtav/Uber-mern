@@ -11,8 +11,6 @@ export const getSuggestions = async (query: string): Promise<SuggestionResponse>
         return { success: false, data: [] };
     }
 
-    console.log("Fetching suggestions for query:", query);
-
     try {
         const res = await API.get("maps/get-suggestion", {
             params: { input: query },

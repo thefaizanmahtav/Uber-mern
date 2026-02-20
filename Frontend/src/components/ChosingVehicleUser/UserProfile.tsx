@@ -19,8 +19,6 @@ type UserProfileProps = {
 
 function UserProfile(props:UserProfileProps) {
 
- console.log("props",props)
-
     const navigate = useNavigate()
 
     const { user } = useAuth()

@@ -1,7 +1,7 @@
 import useAuthSuggestions from "@/hooks/useGetSuggestions";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 type FormValues = {
@@ -22,13 +22,12 @@ function PicupAndDestination() {
     const [pickupQuery, setPickupQuery] = useState("");
     const [destinationQuery, setDestinationQuery] = useState("");
 
+    const navigate = useNavigate();
+
 
     // API fetching
     const { suggestion: pickupSuggestion, isFetching: isPickupFetching } = useAuthSuggestions(pickupQuery);
     const { suggestion: destinationSuggestion, isFetching: isDestinationFetching } = useAuthSuggestions(destinationQuery);
-
-    console.log("isFetching:", isPickupFetching);
-    console.log("suggestion:", pickupSuggestion?.data);
 
     // 🔹 Handle form submission
     const onSubmit = (data: FormValues) => {
@@ -68,9 +67,6 @@ function PicupAndDestination() {
     const destinationList = Array.isArray(destinationSuggestion?.data)
         ? destinationSuggestion.data.filter(item => typeof item === "object" && item !== null)
         : [];
-
-
-    console.log("destinationList", destinationList)
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -175,12 +171,8 @@ function PicupAndDestination() {
                                         ref={dropdownRef}
                                         className="absolute left-0 right-0 z-20 transition-all duration-300 ease-in-out origin-top scale-y-100 opacity-100"
                                     >
-                                        <div className="p-2 mt-[2px] min-h-20 flex max-w-md flex-col bg-white shadow-lg shadow-black/30 rounded-lg">
+                                        <div className="mt-[2px] min-h-20 flex max-w-md flex-col bg-white shadow-lg shadow-black/30 rounded-lg">
 
-                                            {/* Loading */}
-                                            {isPickupFetching && (
-                                                <p className="text-gray-500 text-sm">Loading...</p>
-                                            )}
 
                                             {/* Suggestions */}
                                             {!isPickupFetching && (
@@ -196,14 +188,41 @@ function PicupAndDestination() {
                                                                 <li
                                                                     key={key}
                                                                     onMouseDown={() => selectSuggestion("pickup", label)}
-                                                                    className="p-2 text-black hover:bg-gray-100 cursor-pointer"
+                                                                    className="p-2 text-[17px] text-black hover:bg-gray-100 cursor-pointer"
                                                                 >
-                                                                    {label}
+                                                                    {/* Location marker icon */}
+
+                                                                    <div className="flex items-center justify-start gap-2.5 w-full">
+
+                                                                        <div className="flex bg-gray-200 p-2.5 rounded-full ml-2 my-2">
+                                                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><title>Location marker</title><path d="M18.7 3.8C15 .1 9 .1 5.3 3.8c-3.7 3.7-3.7 9.8 0 13.5L12 24l6.7-6.8c3.7-3.6 3.7-9.7 0-13.4ZM12 12.5c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2Z" fill="currentColor"></path></svg>
+                                                                        </div>
+                                                                        <div className="ml-2">
+                                                                            {label}
+                                                                        </div>
+                                                                    </div>
                                                                 </li>
                                                             );
                                                         })}
                                                 </ul>
                                             )}
+
+                                            {/* Loading */}
+
+                                            {isPickupFetching && (
+                                                <div className="flex justify-center items-center h-18">
+                                                    <p className="text-gray-500 text-[16px]">Loading...</p>
+                                                </div>
+                                            )}
+
+                                            {/* If no suggestions found */}
+
+                                            {!isPickupFetching && pickupList.length === 0 && (
+                                                <div className="flex justify-center items-center h-18">
+                                                    <p className="text-gray-500 text-md font-semibold">No results</p>
+                                                </div>
+                                            )}
+
 
                                         </div>
                                     </div>
@@ -257,16 +276,11 @@ function PicupAndDestination() {
                                         ref={dropdownRef}
                                         className="absolute left-0 right-0 z-20 transition-all duration-300 ease-in-out origin-top scale-y-100 opacity-100"
                                     >
-                                        <div className="p-2 mt-[2px] min-h-20 flex max-w-md flex-col bg-white shadow-lg shadow-black/30 rounded-lg">
-
-                                            {/* Loading */}
-                                            {isDestinationFetching && (
-                                                <p className="text-gray-500 text-sm">Loading...</p>
-                                            )}
+                                        <div className="mt-[2px] min-h-20 flex max-w-md flex-col bg-white shadow-lg shadow-black/30 rounded-lg">
 
                                             {/* Suggestions */}
                                             {!isDestinationFetching && (
-                                                <ul className="bg-white rounded-lg w-full overflow-y-auto max-h-[55vh]">
+                                                <ul className="bg-white py-2 rounded-lg w-full overflow-y-auto max-h-[55vh]">
                                                     {(Array.isArray(destinationList) ? destinationList : [])
                                                         .map((item, index) => {
 
@@ -278,13 +292,40 @@ function PicupAndDestination() {
                                                                 <li
                                                                     key={key}
                                                                     onMouseDown={() => selectSuggestion("destination", label)}
-                                                                    className="p-2 text-black hover:bg-gray-100 cursor-pointer"
+                                                                    className="p-2 text-[17px] text-black hover:bg-gray-100 cursor-pointer"
                                                                 >
-                                                                    {label}
+                                                                    {/* Location marker icon */}
+
+                                                                    <div className="flex items-center justify-start gap-2.5 w-full">
+
+                                                                        <div className="flex bg-gray-200 p-2.5 rounded-full ml-2 my-2">
+                                                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><title>Location marker</title><path d="M18.7 3.8C15 .1 9 .1 5.3 3.8c-3.7 3.7-3.7 9.8 0 13.5L12 24l6.7-6.8c3.7-3.6 3.7-9.7 0-13.4ZM12 12.5c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2Z" fill="currentColor"></path></svg>
+                                                                        </div>
+                                                                        <div className="ml-2">
+                                                                            {label}
+                                                                        </div>
+                                                                    </div>
+
                                                                 </li>
                                                             );
                                                         })}
                                                 </ul>
+                                            )}
+
+                                            {/* Loading */}
+
+                                            {isDestinationFetching && (
+                                                <div className="flex justify-center items-center h-18">
+                                                    <p className="text-gray-500 text-[16px]">Loading...</p>
+                                                </div>
+                                            )}
+
+                                            {/* If no suggestions found */}
+
+                                            {!isDestinationFetching && destinationList.length === 0 && (
+                                                <div className="flex justify-center items-center h-18">
+                                                    <p className="text-gray-500 text-md font-semibold">No results</p>
+                                                </div>
                                             )}
 
                                         </div>
@@ -296,11 +337,20 @@ function PicupAndDestination() {
 
                             <div className=" absolute h-[1px] w-13 bg-black/90 rotate-90 top-[62px] bottom-0 left-0 right-8 m-[1px] "></div>
 
-                            <Link
-                                to={"/users/dashboard/ride"}
-                                className="bg-black py-4 px-9 w-fit text-white text-md rounded-lg">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    navigate("/users/dashboard/product", {
+                                        state: {
+                                            pickup: pickupQuery,
+                                            destination: destinationQuery,
+                                        },
+                                    });
+                                }}
+                                className="bg-black py-4 px-9 w-fit text-white text-md rounded-lg"
+                            >
                                 See Prices
-                            </Link>
+                            </button>
                         </div>
                     </form>
 
